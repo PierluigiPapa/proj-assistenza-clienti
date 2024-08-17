@@ -1,12 +1,16 @@
 <script>
 import AppHeader from './components/Header/AppHeader.vue';
 import AppJumbo from './components/Main/AppJumbo.vue';
+import AppServices from './components/Main/AppServices.vue';
+
 
 
 export default {
     components: {
         AppHeader,
-        AppJumbo
+        AppJumbo,
+        AppServices,
+
     }
 }
 </script>
@@ -15,6 +19,7 @@ export default {
 
     <AppHeader/>
     <AppJumbo/>
+    <AppServices/>
 
 </template>
 

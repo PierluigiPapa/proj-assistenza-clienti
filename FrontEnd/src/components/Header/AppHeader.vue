@@ -16,10 +16,6 @@ export default {
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home</a>
                 </li>
-                
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="#">Chi siamo</a>
@@ -33,8 +29,8 @@ export default {
 
        
         <div class="ml-auto me-5 button">
-            <button class="btn me-3"> <a href="http://127.0.0.1:8000/login" class="text-light">Accedi</a></button>
-            <button class="btn"><a href="http://127.0.0.1:8000/register" class="text-light">Registrati</a></button>
+            <button class="btn me-3"> <a href="http://127.0.0.1:8000/login">Accedi</a></button>
+            <button class="btn"><a href="http://127.0.0.1:8000/register">Registrati</a></button>
         </div>
     </nav>
 </template>
@@ -54,14 +50,18 @@ nav {
 
 a {
     text-decoration: none;
+    color: white;
 }
 
 .btn {
     background-color: #3498DB;
+    border: 2px solid white;
 }
 
 .btn:hover {
     background-color: #194665;
+    transition: background-color 0.3s, color 0.3s, filter 0.3s;
+    border: 2px solid white;
 }
 
 

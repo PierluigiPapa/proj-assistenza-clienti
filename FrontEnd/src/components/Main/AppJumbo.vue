@@ -86,7 +86,6 @@ export default defineComponent({
   justify-content: center;
   color: white;
   padding: 10px;
-  box-sizing: border-box;
 }
 
 .text-marketing {
