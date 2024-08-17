@@ -1,4 +1,6 @@
 <script>
+import { RouterLink } from 'vue-router';
+
 export default {
     name: 'AppHeader',
 }
@@ -14,7 +16,7 @@ export default {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home</a>
+                    <router-link :to="{ name: 'home' }" class="nav-link">Home</router-link>
                 </li>
 
                 <li class="nav-item">
@@ -22,14 +24,14 @@ export default {
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">I nostri servizi</a>
+                    <router-link :to="{name: 'servizi'}" class="nav-link">I nostri servizi</router-link>
                 </li>
             </ul>
         </div>
 
         <div class="ms-auto me-5 button">
-            <a href="http://127.0.0.1:8000/login" class="btn me-3">Accedi</a>
-            <a href="http://127.0.0.1:8000/register" class="btn">Registrati</a>
+            <a href="http://127.0.0.1:8000/login" class="btn btn-login me-3">Accedi</a>
+            <a href="http://127.0.0.1:8000/register" class="btn btn-login">Registrati</a>
         </div>
     </nav>
 </template>
@@ -51,13 +53,13 @@ a {
     color: white;
 }
 
-.btn {
+.btn-login {
     background-color: #3498DB;
     border: 2px solid white;
     color: white;
 }
 
-.btn:hover {
+.btn-login:hover {
     background-color: #194665;
     color: white;
     transition: background-color 0.3s, color 0.3s, filter 0.3s;

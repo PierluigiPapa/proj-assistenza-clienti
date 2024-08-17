@@ -56,7 +56,8 @@ export default {
 
         <div class="row mb-5">
             <div class="col d-flex justify-content-center align-items-center">
-                <button class="btn btn-service me-3"> <a href="" class="fw-bold no-color fs-5">Scopri i nostri servizi</a></button>
+                <button class="btn btn-service me-3"> <router-link :to="{name:'servizi'}" class="fw-bold no-color fs-5">Scopri i nostri servizi</router-link></button>
+
             </div>
         </div>
     </div>
