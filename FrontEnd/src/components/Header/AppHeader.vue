@@ -7,12 +7,12 @@ export default {
 <template>
     <nav class="navbar navbar-expand-lg">
         <a class="navbar-brand ms-5">TechGuard</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav me-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home</a>
                 </li>
@@ -27,14 +27,12 @@ export default {
             </ul>
         </div>
 
-       
-        <div class="ml-auto me-5 button">
-            <button class="btn me-3"> <a href="http://127.0.0.1:8000/login">Accedi</a></button>
-            <button class="btn"><a href="http://127.0.0.1:8000/register">Registrati</a></button>
+        <div class="ms-auto me-5 button">
+            <a href="http://127.0.0.1:8000/login" class="btn me-3">Accedi</a>
+            <a href="http://127.0.0.1:8000/register" class="btn">Registrati</a>
         </div>
     </nav>
 </template>
-
 
 <style lang="scss">
 @use "../../styles/partials/variables.scss" as *;
@@ -56,6 +54,7 @@ a {
 .btn {
     background-color: #3498DB;
     border: 2px solid white;
+    color: white;
 }
 
 .btn:hover {
@@ -63,6 +62,5 @@ a {
     transition: background-color 0.3s, color 0.3s, filter 0.3s;
     border: 2px solid white;
 }
-
 
 </style>
