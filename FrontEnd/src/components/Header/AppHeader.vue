@@ -59,6 +59,7 @@ a {
 
 .btn:hover {
     background-color: #194665;
+    color: white;
     transition: background-color 0.3s, color 0.3s, filter 0.3s;
     border: 2px solid white;
 }
