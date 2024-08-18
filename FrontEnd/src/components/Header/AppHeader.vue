@@ -48,6 +48,7 @@ nav {
     color: black;
 }
 
+
 a {
     text-decoration: none;
     color: white;
@@ -57,6 +58,7 @@ a {
     background-color: #3498DB;
     border: 2px solid white;
     color: white;
+    
 }
 
 .btn-login:hover {

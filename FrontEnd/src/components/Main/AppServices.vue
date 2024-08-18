@@ -82,13 +82,13 @@ export default {
 }
 
 .btn-service {
-    background-color: #1ABC9C;
-    border: 2px solid black;
-    color: black;
+    background-color: white;
+    border: 2px solid #091c2e;
+    color: #091c2e;
 }
 
 .btn-service:hover {
-    background-color: #093c32;
+    background-color: #091c2e;
     border: 2px solid white;
     transition: background-color 0.3s, color 0.3s, filter 0.3s;
     color: white;
