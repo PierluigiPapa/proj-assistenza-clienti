@@ -36,7 +36,7 @@
                     </div>
 
                     <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary">Accedi</button>
+                        <button type="submit" class="btn btn-login">Accedi</button>
                     </div>
 
                     @if (Route::has('password.request'))
@@ -62,6 +62,19 @@
         padding: 20px;
         border-radius: 8px;
          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-login {
+        background-color: #3498DB;
+        border: 2px solid white;
+        color: white;
+    }
+
+    .btn-login:hover {
+        background-color: #194665;
+        color: white;
+        transition: background-color 0.3s, color 0.3s, filter 0.3s;
+        border: 2px solid white;
     }
     </style>
 @endsection
