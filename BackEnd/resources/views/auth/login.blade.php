@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="background-login">
+    <div class="background-login d-flex justify-content-center align-items-center">
         <div class="card-login">
             <div class="container">
                 <form method="POST" action="{{ route('login') }}">
@@ -48,23 +48,20 @@
             </div>
         </div>
     </div>
-</div>
 
-<style>
+    <style>
     .background-login {
         background-image: url('/images/Immagine_3.jpg');
         background-size: cover;
         background-position: center;
         height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
+
     .card-login {
-        background: rgba(255, 255, 255, 0.8); /* Opacità per rendere il card meno trasparente */
+        background: rgba(255, 255, 255, 0.8);
         padding: 20px;
         border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-</style>
+    </style>
 @endsection
