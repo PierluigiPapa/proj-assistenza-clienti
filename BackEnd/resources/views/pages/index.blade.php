@@ -22,8 +22,8 @@
                         <th scope="row">{{ $user->id }}</th>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
-                        <td>{{ $user->created_at }}</td>
-                        <td>{{ $user->updated_at }}</td>
+                        <td>{{ $user->created_at->format('d-m-Y H:i:s') }}</td>
+                        <td>{{ $user->updated_at->format('d-m-Y H:i:s') }}</td>
                     </tr>
                     @endforeach
                 </tbody>
