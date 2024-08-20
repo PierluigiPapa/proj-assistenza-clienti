@@ -56,7 +56,7 @@
 
 <style>
 .background-login {
-    background-image: url('/images/Immagine_3.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('/images/Immagine_3.jpg');
     background-size: cover;
     background-position: center;
     height: 100vh;

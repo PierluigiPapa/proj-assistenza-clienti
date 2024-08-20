@@ -51,7 +51,7 @@
 
     <style>
     .background-login {
-        background-image: url('/images/Immagine_3.jpg');
+        background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('/images/Immagine_3.jpg');
         background-size: cover;
         background-position: center;
         height: 100vh;
@@ -61,7 +61,7 @@
         background: rgba(255, 255, 255, 0.8);
         padding: 20px;
         border-radius: 8px;
-         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .btn-login {
