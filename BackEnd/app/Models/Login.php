@@ -13,7 +13,7 @@ class Login extends Model
         'username',
         'password',
         'nome',
-        'cognone',
+        'cognome',
         'admin'
     ];
 
