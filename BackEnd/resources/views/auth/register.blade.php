@@ -9,7 +9,7 @@
                 @csrf
 
                 <div class="mb-3">
-                    <label for="nome" class="form-label">{{ __('Nome') }}</label>
+                    <label for="email" class="form-label">{{ __('Nome') }}</label>
                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                     @error('name')
@@ -20,21 +20,10 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="surname" class="form-label">{{ __('Cognome') }}</label>
-                    <input id="surname" type="surname" class="form-control @error('surname') is-invalid @enderror" name="surname" value="{{ old('surname') }}" required autocomplete="surname">
+                    <label for="email" class="form-label">{{ __('Indirizzo email') }}</label>
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
-                    @error('surname')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="username" class="form-label">{{ __('Username') }}</label>
-                    <input id="username" type="username" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="surname">
-
-                    @error('username')
+                    @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
