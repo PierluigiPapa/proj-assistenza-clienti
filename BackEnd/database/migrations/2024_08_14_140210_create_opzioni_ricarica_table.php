@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('opzioni_ricarica', function (Blueprint $table) {
             $table->id();
-
             $table->string('descrizione', 50);
             $table->decimal('costo', 10, 2);
             $table->time('ore');
-            $table->tinyInteger('admin')->default(0);
+            $table->tinyInteger('admin');
             $table->timestamps();
         });
     }
