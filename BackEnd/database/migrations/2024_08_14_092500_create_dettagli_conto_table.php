@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('IDLogin');
             $table->foreign('IDLogin')->references('id')->on('login')->onDelete('cascade');
-            $table->time('Saldo');
+            $table->time('saldo');
             $table->timestamps();
         });
     }

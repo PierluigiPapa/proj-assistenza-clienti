@@ -31,4 +31,6 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/index', [UserController::class, 'index']);
 
+Route::resource('users', UserController::class);
+
 require __DIR__.'/auth.php';
