@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('cognome', 45);
             $table->string('username', 50)->unique();
             $table->string('password', 100);
-            $table->tinyInteger('admin');
+            $table->tinyInteger('admin')->default(0);
             $table->timestamps();
         });
     }

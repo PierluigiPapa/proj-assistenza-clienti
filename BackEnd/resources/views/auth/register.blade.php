@@ -9,10 +9,10 @@
                 @csrf
 
                 <div class="mb-3">
-                    <label for="email" class="form-label">{{ __('Nome') }}</label>
-                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                    <label for="nome" class="form-label">{{ __('Nome') }}</label>
+                    <input id="nome" type="text" class="form-control @error('nome') is-invalid @enderror" name="nome" value="{{ old('nome') }}" required autocomplete="nome" autofocus>
 
-                    @error('name')
+                    @error('nome')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -20,10 +20,21 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="email" class="form-label">{{ __('Indirizzo email') }}</label>
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                    <label for="cognome" class="form-label">{{ __('Cognome') }}</label>
+                    <input id="cognome" type="text" class="form-control @error('cognome') is-invalid @enderror" name="cognome" value="{{ old('cognome') }}" required autocomplete="cognome">
 
-                    @error('email')
+                    @error('cognome')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+
+                <div class="mb-3">
+                    <label for="username" class="form-label">{{ __('Username') }}</label>
+                    <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username">
+
+                    @error('username')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -44,6 +55,17 @@
                 <div class="mb-3">
                     <label for="password-confirm" class="form-label">{{ __('Conferma Password') }}</label>
                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                </div>
+
+                <div class="mb-3">
+                    <label for="admin" class="form-label">{{ __('Amministratore') }}</label>
+                    <input id="admin" type="checkbox" class="form-check-input @error('admin') is-invalid @enderror" name="is_admin" value="1">
+
+                    @error('admin')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
 
                 <div class="d-flex justify-content-center">
@@ -70,7 +92,6 @@
     width: 40%;
     margin: auto;
 }
-
 
 .btn-login {
     background-color: #3498DB;

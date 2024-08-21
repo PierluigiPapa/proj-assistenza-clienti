@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Login extends Model
+class Login extends Model implements AuthenticatableContract
 {
-    use HasFactory;
+    use HasFactory, Authenticatable;
+
+    protected $table = 'login';
 
     protected $fillable = [
         'username',
@@ -16,6 +20,16 @@ class Login extends Model
         'cognome',
         'admin'
     ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    public function isAdmin()
+    {
+        return $this->admin === 1;
+    }
 
     public function dettagliConto()
     {
@@ -32,3 +46,4 @@ class Login extends Model
         return $this->hasMany(MovimentiRicarica::class, 'IDLogin');
     }
 }
+

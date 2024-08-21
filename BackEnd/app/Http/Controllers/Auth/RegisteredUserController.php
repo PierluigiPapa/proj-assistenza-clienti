@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Login;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -30,22 +30,30 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // Validazione dei dati in ingresso, inclusi nome, cognome e username
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'nome' => ['required', 'string', 'max:255'],
+            'cognome' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:login'], // Modificato per usare la tabella `login`
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
+        // Creazione del nuovo utente
+        $user = Login::create([
+            'nome' => $request->nome,
+            'cognome' => $request->cognome,
+            'username' => $request->username,
             'password' => Hash::make($request->password),
+            'admin' => $request->has('is_admin') ? 0 : 1, // Imposta il valore di admin
         ]);
 
+        // Evento di registrazione
         event(new Registered($user));
 
+        // Login dell'utente
         Auth::login($user);
 
+        // Reindirizzamento alla dashboard
         return redirect(RouteServiceProvider::HOME);
     }
 }
