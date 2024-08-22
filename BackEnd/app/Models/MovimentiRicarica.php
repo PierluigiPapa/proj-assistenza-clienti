@@ -9,6 +9,8 @@ class MovimentiRicarica extends Model
 {
     use HasFactory;
 
+    protected $table = 'movimenti_ricarica';
+
     protected $fillable = [
         'IDOpzioneRicarica',
         'IDLogin',

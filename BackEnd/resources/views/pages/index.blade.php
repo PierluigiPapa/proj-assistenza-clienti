@@ -38,8 +38,8 @@
                         <td>{{ $user->created_at->setTimezone('Europe/Rome')->format('d-m-Y H:i:s') }}</td>
                         <td>{{ $user->updated_at->setTimezone('Europe/Rome')->format('d-m-Y H:i:s') }}</td>
                         <td>
-                            <a href="{{ route('users.show', $user->id) }}" class="btn btn-warning"><i class="fa-solid fa-eye"></i></a>
-                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary"><i class="fa-solid fa-pen"></i></a>
+                            <a href="{{ route('users.show', $user->id) }}" class="btn btn-secondary"><i class="fa-solid fa-eye"></i></a>
+                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-success"><i class="fa-solid fa-pen"></i></a>
                             <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline-block;">
                                 @csrf
                                 @method('DELETE')
