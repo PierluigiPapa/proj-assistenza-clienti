@@ -12,7 +12,8 @@ class UserController extends Controller
     public function index()
     {
         $users = Login::all();
-        return view('pages.index', compact('users'));
+        $totalUsers = $users->count();
+        return view('pages.index', compact('users', 'totalUsers'));
     }
 
     // Create: mostra il form per creare un nuovo utente
@@ -48,7 +49,10 @@ class UserController extends Controller
     // Show: mostra un singolo utente
     public function show($id)
     {
-        $user = Login::findOrFail($id);
+        $user = Login::find($id);
+        if (!$user) {
+            return redirect('/users')->with('error', 'User not found!');
+        }
         return view('pages.show', compact('user'));
     }
 
@@ -66,7 +70,6 @@ class UserController extends Controller
             'nome' => 'required',
             'cognome' => 'required',
             'username' => 'required|unique:login,username,'.$id,
-            // 'password' => 'nullable|min:6',
             'admin' => 'required|boolean',
         ]);
 

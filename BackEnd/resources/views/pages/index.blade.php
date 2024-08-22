@@ -5,7 +5,7 @@
 <main>
     <div class="container">
         <div class="d-flex justify-content-center align-items-center mt-5">
-            <h1 class="text-light">Lista utenti</h1>
+            <h3 class="text-light">Lista utenti: {{$totalUsers}}</h3>
         </div>
 
         <div class="d-flex justify-content-center align-items-center">
@@ -35,8 +35,8 @@
                         <td>{{ $user->cognome }}</td>
                         <td>{{ $user->username }}</td>
                         <td>{{ $user->admin ? 'Amministratore' : 'Utente' }}</td>
-                        <td>{{ $user->created_at->format('d-m-Y H:i:s') }}</td>
-                        <td>{{ $user->updated_at->format('d-m-Y H:i:s') }}</td>
+                        <td>{{ $user->created_at->setTimezone('Europe/Rome')->format('d-m-Y H:i:s') }}</td>
+                        <td>{{ $user->updated_at->setTimezone('Europe/Rome')->format('d-m-Y H:i:s') }}</td>
                         <td>
                             <a href="{{ route('users.show', $user->id) }}" class="btn btn-warning"><i class="fa-solid fa-eye"></i></a>
                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary"><i class="fa-solid fa-pen"></i></a>
