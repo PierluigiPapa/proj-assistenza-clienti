@@ -13,7 +13,6 @@ class OpzioniRicarica extends Model
         'descrizione',
         'costo',
         'ore',
-        'admin',
     ];
 
     public function MovimentiRicarica() {
