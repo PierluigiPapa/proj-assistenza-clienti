@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('descrizione', 50);
             $table->decimal('costo', 10, 2);
             $table->time('ore');
-            $table->tinyInteger('admin');
             $table->timestamps();
         });
     }
