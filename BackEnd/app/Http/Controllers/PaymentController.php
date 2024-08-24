@@ -33,7 +33,7 @@ class PaymentController extends Controller
                 'IDOpzioneRicarica' => $request->IDOpzioneRicarica,
                 'IDLogin' => $request->IDLogin,
                 'data' => now(),
-                'ore' => now()->format('H:i:s'),
+                'ore' => $request->ore,
                 'paypal_orderid' => $transaction->id
             ]);
 
@@ -43,10 +43,4 @@ class PaymentController extends Controller
         }
     }
 
-    public function showUserDetails($id)
-    {
-        $user = User::find($id);
-        $dataScadenza = $this->calcolaDataScadenza($user->id); // Funzione per calcolare la data di scadenza
-        return view('user.details', compact('user', 'dataScadenza'));
-    }
 }

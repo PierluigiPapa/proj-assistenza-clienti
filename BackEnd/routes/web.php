@@ -35,5 +35,6 @@ Route::get('/index', [UserController::class, 'index']);
 Route::resource('users', UserController::class);
 
 Route::post('/process-payment', [PaymentController::class, 'processPayment'])->name('processPayment');
+Route::get('/process-payment', [PaymentController::class, 'processPayment'])->name('processPayment');
 
 require __DIR__.'/auth.php';

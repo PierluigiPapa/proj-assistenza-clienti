@@ -25,7 +25,6 @@
                   <p class="card-text">Cognome: {{$user->cognome}}</p>
                   <p class="card-text">Creato il: {{$user->created_at->setTimezone('Europe/Rome')->format('d-m-Y H:i:s')}}</p>
                   <p class="card-text">Aggiornato il: {{$user->updated_at->setTimezone('Europe/Rome')->format('d-m-Y H:i:s')}}</p>
-                  <p class="card-text" id="data_scadenza_display">Data di scadenza: </p>
                 </div>
             </div>
         </div>
@@ -36,17 +35,17 @@
                     <form id="payment-form" method="POST" action="{{ route('processPayment') }}">
                         @csrf
                         <input type="hidden" name="IDLogin" value="{{$user->id}}">
+                        <input type="hidden" id="ore" name="ore">
                         <input type="hidden" name="payment_method_nonce">
-                        <input type="hidden" name="data_scadenza" id="data_scadenza">
 
                         <!-- Aggiungi il menu a tendina per le opzioni di ricarica -->
                         <div class="form-group">
                             <label for="IDOpzioneRicarica">Seleziona un'opzione di ricarica:</label>
-                            <select class="form-control" id="IDOpzioneRicarica" name="IDOpzioneRicarica" onchange="calcolaDataScadenza()">
-                                <option value="1" data-ore="6" data-costo="5.00">Ricarica Base - 5.00€ per 6 ore</option>
-                                <option value="2" data-ore="12" data-costo="10.00">Ricarica Standard - 10.00€ per 12 ore</option>
-                                <option value="3" data-ore="24" data-costo="20.00">Ricarica Avanzata - 20.00€ per 24 ore</option>
-                                <option value="4" data-ore="48" data-costo="50.00">Ricarica Elite - 50.00€ per 48 ore</option>
+                            <select class="form-control" id="IDOpzioneRicarica" name="IDOpzioneRicarica" onchange="updateOre()">
+                                <option value="1" ore="6" costo="5.00">Ricarica Base - 5.00€ per 6 ore</option>
+                                <option value="2" ore="12" costo="10.00">Ricarica Standard - 10.00€ per 12 ore</option>
+                                <option value="3" ore="24" costo="20.00">Ricarica Avanzata - 20.00€ per 24 ore</option>
+                                <option value="4" ore="48" costo="50.00">Ricarica Elite - 50.00€ per 48 ore</option>
                             </select>
                         </div>
 
@@ -60,21 +59,13 @@
 </main>
 
 <script>
-    function calcolaDataScadenza() {
-        let select = document.getElementById('IDOpzioneRicarica');
-        let ore = select.options[select.selectedIndex].getAttribute('data-ore');
-        let costo = select.options[select.selectedIndex].getAttribute('data-costo');
-        let dataScadenza = new Date();
-        dataScadenza.setHours(dataScadenza.getHours() + parseInt(ore));
 
-        let dataScadenzaInput = document.getElementById('data_scadenza');
-        dataScadenzaInput.value = dataScadenza.toISOString().slice(0, 19).replace('T', ' ');
-
-        // Visualizza la data di scadenza e il costo nella card dei dettagli utente
-        let dataScadenzaDisplay = document.getElementById('data_scadenza_display');
-        dataScadenzaDisplay.textContent = 'Data di scadenza: ' + dataScadenza.toLocaleString() + ' - Costo: ' + costo + '€';
+function updateOre() {
+        var select = document.getElementById('IDOpzioneRicarica');
+        var ore = select.options[select.selectedIndex].getAttribute('ore');
+        document.getElementById('ore').value = ore;
     }
-
+    
     let form = document.querySelector('#payment-form');
     braintree.dropin.create({
         authorization: 'sandbox_v2smmr6x_6xqmd4knh2cjrrz9',

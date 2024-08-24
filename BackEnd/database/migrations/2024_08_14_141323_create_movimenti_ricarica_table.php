@@ -16,7 +16,7 @@ class CreateMovimentiRicaricaTable extends Migration
             $table->time('ore');
             $table->string('paypal_orderid', 120);
             $table->timestamps();
-            
+
             $table->foreign('IDOpzioneRicarica')->references('id')->on('opzioni_ricarica')->onDelete('cascade');
             $table->foreign('IDLogin')->references('id')->on('login')->onDelete('cascade');
         });
