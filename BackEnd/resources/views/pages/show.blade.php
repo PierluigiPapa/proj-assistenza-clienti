@@ -50,8 +50,10 @@
                             </select>
                         </div>
 
-                        <div id="bt-dropin"></div>
-                        <button type="submit" class="btn btn-primary mt-3">Paga</button>
+                        <div id="payment-section" style="display: none;">
+                            <div id="bt-dropin"></div>
+                            <button type="submit" class="btn btn-primary mt-3">Paga</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -61,9 +63,17 @@
 
 <script>
 function updateOre() {
-    var select = document.getElementById('IDOpzioneRicarica');
+    let select = document.getElementById('IDOpzioneRicarica');
     var ore = select.options[select.selectedIndex].getAttribute('ore');
     document.getElementById('ore').value = ore;
+
+    // Mostra il form di pagamento quando viene selezionata un'opzione
+    let paymentSection = document.getElementById('payment-section');
+    if (select.value) {
+        paymentSection.style.display = 'block';
+    } else {
+        paymentSection.style.display = 'none';
+    }
 }
 
     let form = document.querySelector('#payment-form');
