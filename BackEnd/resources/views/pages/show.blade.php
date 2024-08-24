@@ -35,13 +35,14 @@
                     <form id="payment-form" method="POST" action="{{ route('processPayment') }}">
                         @csrf
                         <input type="hidden" name="IDLogin" value="{{$user->id}}">
-                        <input type="hidden" id="ore" name="ore">
+                        <input type="hidden" id="ore" name="ore" value="">
                         <input type="hidden" name="payment_method_nonce">
 
                         <!-- Aggiungi il menu a tendina per le opzioni di ricarica -->
                         <div class="form-group">
-                            <label for="IDOpzioneRicarica">Seleziona un'opzione di ricarica:</label>
+                            <label for="IDOpzioneRicarica"></label>
                             <select class="form-control" id="IDOpzioneRicarica" name="IDOpzioneRicarica" onchange="updateOre()">
+                                <option value="" disabled selected>Seleziona un'opzione di ricarica</option>
                                 <option value="1" ore="6" costo="5.00">Ricarica Base - 5.00€ per 6 ore</option>
                                 <option value="2" ore="12" costo="10.00">Ricarica Standard - 10.00€ per 12 ore</option>
                                 <option value="3" ore="24" costo="20.00">Ricarica Avanzata - 20.00€ per 24 ore</option>
@@ -59,13 +60,12 @@
 </main>
 
 <script>
-
 function updateOre() {
-        var select = document.getElementById('IDOpzioneRicarica');
-        var ore = select.options[select.selectedIndex].getAttribute('ore');
-        document.getElementById('ore').value = ore;
-    }
-    
+    var select = document.getElementById('IDOpzioneRicarica');
+    var ore = select.options[select.selectedIndex].getAttribute('ore');
+    document.getElementById('ore').value = ore;
+}
+
     let form = document.querySelector('#payment-form');
     braintree.dropin.create({
         authorization: 'sandbox_v2smmr6x_6xqmd4knh2cjrrz9',
