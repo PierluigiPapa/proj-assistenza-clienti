@@ -78,6 +78,18 @@
                                 </select>
                             </div>
 
+                            @if (session('success'))
+                            <div class="alert alert-successo mt-4">
+                                {{ session('success') }}
+                             </div>
+                            @endif
+
+                            @if (session('error'))
+                            <div class="alert alert-errore mt-4">
+                                {{ session('error') }}
+                            </div>
+                            @endif
+
                             <div id="payment-section" style="display: none;">
                                 <div id="bt-dropin"></div>
                                 <div class="d-flex justify-content-center">
@@ -110,7 +122,8 @@ function updateOre() {
 let form = document.querySelector('#payment-form');
 braintree.dropin.create({
     authorization: 'sandbox_v2smmr6x_6xqmd4knh2cjrrz9',
-    container: '#bt-dropin'
+    container: '#bt-dropin',
+    locale: 'it' // Imposta la lingua italiana
 }, function (createErr, instance) {
     form.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -134,6 +147,16 @@ braintree.dropin.create({
         color: white;
         transition: background-color 0.3s, color 0.3s, filter 0.3s;
         border: 2px solid white;
+    }
+
+    .alert-successo {
+        background-color: rgb(40, 184, 40);
+        color: black
+    }
+
+    .alert-errore {
+        background-color: rgb(255, 65, 65);
+        color: black
     }
 </style>
 
