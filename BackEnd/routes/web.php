@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\MovimentiRicaricaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,8 +36,7 @@ Route::get('/index', [UserController::class, 'index']);
 Route::resource('users', UserController::class);
 
 Route::post('/process-payment', [PaymentController::class, 'processPayment'])->name('processPayment');
-Route::get('/process-payment', [PaymentController::class, 'processPayment'])->name('processPayment');
 
-
+Route::delete('/movimentiRicarica/{id}', [MovimentiRicaricaController::class, 'destroy'])->name('movimentiRicarica.destroy');
 
 require __DIR__.'/auth.php';

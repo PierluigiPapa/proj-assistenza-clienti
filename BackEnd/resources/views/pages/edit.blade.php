@@ -79,13 +79,13 @@
                             </div>
 
                             @if (session('success'))
-                            <div class="alert alert-successo mt-4">
+                            <div class="alert alert-successo">
                                 {{ session('success') }}
                              </div>
                             @endif
 
                             @if (session('error'))
-                            <div class="alert alert-errore mt-4">
+                            <div class="alert alert-errore">
                                 {{ session('error') }}
                             </div>
                             @endif

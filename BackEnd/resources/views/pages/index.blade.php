@@ -21,8 +21,6 @@
                         <th scope="col">Cognome</th>
                         <th scope="col">Username</th>
                         <th scope="col">Tipo di utente</th>
-                        {{-- <th scope="col">Creato il</th>
-                        <th scope="col">Aggiornato il</th> --}}
                         <th scope="col">Movimenti Ricarica</th>
                         <th scope="col">Azioni</th>
                     </tr>
@@ -36,12 +34,53 @@
                         <td>{{ $user->cognome }}</td>
                         <td>{{ $user->username }}</td>
                         <td>{{ $user->admin ? 'Amministratore' : 'Utente' }}</td>
-                        {{-- <td>{{ $user->created_at->setTimezone('Europe/Rome')->format('d-m-Y H:i:s') }}</td>
-                        <td>{{ $user->updated_at->setTimezone('Europe/Rome')->format('d-m-Y H:i:s') }}</td> --}}
                         <td>
-                            @foreach($user->movimentiRicarica as $movimento)
-                                {{ $movimento->ore }} <!-- Assumendo che 'dettagli' sia una colonna nella tabella movimenti_ricarica -->
-                            @endforeach
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#oreModal-{{ $user->id }}">
+                                Visualizza le ricariche
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="oreModal-{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="oreModalLabel-{{ $user->id }}" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="oreModalLabel-{{ $user->id }}">Ricariche di {{ $user->username }}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Tipologia</th>
+                                                        <th>Ore</th>
+                                                        <th>Azioni</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($user->movimentiRicarica as $movimento)
+                                                    <tr>
+                                                        <td>{{ $movimento->opzione_ricarica_label }}</td>
+                                                        <td>{{ $movimento->ore }}</td>
+                                                        <td>
+                                                            <form action="{{ route('movimentiRicarica.destroy', $movimento->id) }}" method="POST" style="display:inline-block;">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                         <td>
                             <a href="{{ route('users.show', $user->id) }}" class="btn btn-secondary"><i class="fa-solid fa-eye"></i></a>
@@ -59,6 +98,8 @@
         </div>
     </div>
 </main>
+
+
 
 <style>
     .btn-login {

@@ -36,6 +36,7 @@ class PaymentController extends Controller
 
         // Trova il record esistente nel database
         $movimento = MovimentiRicarica::where('IDLogin', $request->IDLogin)->first();
+        \Log::info('Movimento trovato: ' . ($movimento ? 'Sì' : 'No'));
 
         if ($movimento) {
             // Aggiorna il record esistente
@@ -44,6 +45,7 @@ class PaymentController extends Controller
             $movimento->ore = $formattedOre;
             $movimento->paypal_orderid = $transaction->id;
             $movimento->save();
+            \Log::info('Record aggiornato con successo.');
         } else {
             // Crea un nuovo record se non esiste
             MovimentiRicarica::create([
@@ -53,10 +55,12 @@ class PaymentController extends Controller
                 'ore' => $formattedOre,
                 'paypal_orderid' => $transaction->id
             ]);
+            \Log::info('Nuovo record creato con successo.');
         }
 
         return redirect()->back()->with('success', 'Pagamento effettuato con successo!');
     } else {
+        \Log::error('Errore durante il pagamento: ' . $result->message);
         return redirect()->back()->with('error', 'Il pagamento non è andato a buon fine. Riprova.');
     }
 }
