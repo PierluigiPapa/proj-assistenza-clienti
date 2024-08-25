@@ -11,7 +11,7 @@ class UserController extends Controller
     // Read: mostra tutti gli utenti
     public function index()
     {
-        $users = Login::all();
+        $users = Login::with('movimentiRicarica')->get();
         $totalUsers = $users->count();
         return view('pages.index', compact('users', 'totalUsers'));
     }

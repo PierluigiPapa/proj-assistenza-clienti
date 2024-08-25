@@ -3,41 +3,124 @@
 @section('content')
 
 <main>
-        <div class="d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle text-light">
-            <form action="{{ route('users.update', $user->id) }}" method="POST">
-                @csrf
-                @method('PUT')
-                <div class="mb-3 ">
-                    <label for="nome" class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="nome" name="nome" required>
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Card con il form di registrazione -->
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">Modifica l'utente</h3>
+                        <form action="{{ route('users.update', $user->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <div class="mb-3">
+                                <label for="nome" class="form-label">Nome</label>
+                                <input type="text" class="form-control" id="nome" name="nome" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="cognome" class="form-label">Cognome</label>
+                                <input type="text" class="form-control" id="cognome" name="cognome" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="admin" class="form-label">Admin</label>
+                                <select class="form-control" id="admin" name="admin" required>
+                                    <option value="1">Sì</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-login">Modifica</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="cognome" class="form-label">Cognome</label>
-                    <input type="text" class="form-control" id="cognome" name="cognome" required>
-                </div>
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" required>
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
-                </div>
-                <div class="mb-3">
-                    <label for="admin" class="form-label">Admin</label>
-                    <select class="form-control" id="admin" name="admin" required>
-                        <option value="1">Sì</option>
-                        <option value="0">No</option>
-                    </select>
-                </div>
+            </div>
+        </div>
 
-                <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-login">Modifica</button>
+        <div class="row mt-5">
+            <!-- Card vuota in basso a sinistra -->
+            <div class="col-md-6">
+                <div class="card" style="height: 100%;">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">Form Intervento</h3>
+                    </div>
                 </div>
-            </form>
+            </div>
+
+            <!-- Form di pagamento a destra -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">Effettua una modifica alla ricarica</h3>
+                        <form id="payment-form" method="POST" action="{{ route('processPayment') }}">
+                            @csrf
+                            <input type="hidden" name="IDLogin" value="{{$user->id}}">
+                            <input type="hidden" id="ore" name="ore" value="">
+                            <input type="hidden" name="payment_method_nonce">
+
+                            <!-- Aggiungi il menu a tendina per le opzioni di ricarica -->
+                            <div class="form-group">
+                                <label for="IDOpzioneRicarica"></label>
+                                <select class="form-control" id="IDOpzioneRicarica" name="IDOpzioneRicarica" onchange="updateOre()">
+                                    <option value="" disabled selected>Seleziona un'opzione di ricarica</option>
+                                    <option value="1" ore="6" costo="5.00">Ricarica Base - 5.00€ per 6 ore</option>
+                                    <option value="2" ore="12" costo="10.00">Ricarica Standard - 10.00€ per 12 ore</option>
+                                    <option value="3" ore="24" costo="20.00">Ricarica Avanzata - 20.00€ per 24 ore</option>
+                                    <option value="4" ore="48" costo="50.00">Ricarica Elite - 50.00€ per 48 ore</option>
+                                </select>
+                            </div>
+
+                            <div id="payment-section" style="display: none;">
+                                <div id="bt-dropin"></div>
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-login mt-3">Paga</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </main>
+
+<script>
+function updateOre() {
+    let select = document.getElementById('IDOpzioneRicarica');
+    var ore = select.options[select.selectedIndex].getAttribute('ore');
+    document.getElementById('ore').value = ore;
+
+    // Mostra il form di pagamento quando viene selezionata un'opzione
+    let paymentSection = document.getElementById('payment-section');
+    if (select.value) {
+        paymentSection.style.display = 'block';
+    } else {
+        paymentSection.style.display = 'none';
+    }
+}
+
+let form = document.querySelector('#payment-form');
+braintree.dropin.create({
+    authorization: 'sandbox_v2smmr6x_6xqmd4knh2cjrrz9',
+    container: '#bt-dropin'
+}, function (createErr, instance) {
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        instance.requestPaymentMethod(function (err, payload) {
+            document.querySelector('input[name="payment_method_nonce"]').value = payload.nonce;
+            form.submit();
+        });
+    });
+});
+</script>
 
 <style>
     .btn-login {

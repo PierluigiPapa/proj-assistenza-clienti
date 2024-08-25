@@ -20,9 +20,10 @@
                         <th scope="col">Nome</th>
                         <th scope="col">Cognome</th>
                         <th scope="col">Username</th>
-                        <th scope="col">Amministratore / Utente</th>
-                        <th scope="col">Creato il</th>
-                        <th scope="col">Aggiornato il</th>
+                        <th scope="col">Tipo di utente</th>
+                        {{-- <th scope="col">Creato il</th>
+                        <th scope="col">Aggiornato il</th> --}}
+                        <th scope="col">Movimenti Ricarica</th>
                         <th scope="col">Azioni</th>
                     </tr>
                 </thead>
@@ -35,8 +36,13 @@
                         <td>{{ $user->cognome }}</td>
                         <td>{{ $user->username }}</td>
                         <td>{{ $user->admin ? 'Amministratore' : 'Utente' }}</td>
-                        <td>{{ $user->created_at->setTimezone('Europe/Rome')->format('d-m-Y H:i:s') }}</td>
-                        <td>{{ $user->updated_at->setTimezone('Europe/Rome')->format('d-m-Y H:i:s') }}</td>
+                        {{-- <td>{{ $user->created_at->setTimezone('Europe/Rome')->format('d-m-Y H:i:s') }}</td>
+                        <td>{{ $user->updated_at->setTimezone('Europe/Rome')->format('d-m-Y H:i:s') }}</td> --}}
+                        <td>
+                            @foreach($user->movimentiRicarica as $movimento)
+                                {{ $movimento->ore }} <!-- Assumendo che 'dettagli' sia una colonna nella tabella movimenti_ricarica -->
+                            @endforeach
+                        </td>
                         <td>
                             <a href="{{ route('users.show', $user->id) }}" class="btn btn-secondary"><i class="fa-solid fa-eye"></i></a>
                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-success"><i class="fa-solid fa-pen"></i></a>

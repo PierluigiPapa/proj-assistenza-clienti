@@ -34,13 +34,26 @@ class PaymentController extends Controller
         \Log::info('Valore di ore: ' . $ore);
         $formattedOre = sprintf('%02d:00:00', $ore);
 
-        MovimentiRicarica::create([
-            'IDOpzioneRicarica' => $request->IDOpzioneRicarica,
-            'IDLogin' => $request->IDLogin,
-            'data' => now(),
-            'ore' => $formattedOre, // Usa il valore delle ore formattato
-            'paypal_orderid' => $transaction->id
-        ]);
+        // Trova il record esistente nel database
+        $movimento = MovimentiRicarica::where('IDLogin', $request->IDLogin)->first();
+
+        if ($movimento) {
+            // Aggiorna il record esistente
+            $movimento->IDOpzioneRicarica = $request->IDOpzioneRicarica;
+            $movimento->data = now();
+            $movimento->ore = $formattedOre;
+            $movimento->paypal_orderid = $transaction->id;
+            $movimento->save();
+        } else {
+            // Crea un nuovo record se non esiste
+            MovimentiRicarica::create([
+                'IDOpzioneRicarica' => $request->IDOpzioneRicarica,
+                'IDLogin' => $request->IDLogin,
+                'data' => now(),
+                'ore' => $formattedOre,
+                'paypal_orderid' => $transaction->id
+            ]);
+        }
 
         return redirect()->back()->with('success', 'Pagamento effettuato con successo!');
     } else {
