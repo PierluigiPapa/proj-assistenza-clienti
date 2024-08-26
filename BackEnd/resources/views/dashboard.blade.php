@@ -2,25 +2,38 @@
 
 @section('content')
 <div class="container">
-    <h2 class="fs-4 text-secondary my-4">
-        {{ __('Dashboard') }}
-    </h2>
-    <div class="row justify-content-center">
-        <div class="col">
-            <div class="card">
-                <div class="card-header">{{ __('User Dashboard') }}</div>
+    <div class="row d-flex justify-content-center align-items-center mt-5">
+        <div class="col d-flex justify-content-center align-items-center mt-5">
 
-                <div class="card-body">
-                    @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                    @endif
+            <button class="btn btn-users me-5">
+                <a href="/logins">{{ __('Tabella Utenti') }}</a>
+            </button>
 
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
+            <button class="btn btn-primary me-5">Tabella Ricariche</button>
+
+            <button class="btn btn-primary me-5">Tabella Interventi</button>
         </div>
     </div>
 </div>
+
+<style>
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .btn-users {
+        background-color: #fbcb54;
+        border: 2px solid black;
+        color: black;
+    }
+
+    .btn-users:hover {
+        background-color: #be8800;
+        border: 2px solid black;
+        color: black;
+    }
+
+</style>
+
 @endsection

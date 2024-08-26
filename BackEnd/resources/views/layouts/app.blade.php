@@ -53,7 +53,16 @@
                             <a class="nav-link" href="http://localhost:5174/">{{ __('Home') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/index">{{ __('Index_Utente') }}</a>
+                            <a class="nav-link" href="/index">{{ __('Indice') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logins">{{ __('Tabella Utente') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/index">{{ __('Tabella Ricarica') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/index">{{ __('Tabella Interventi') }}</a>
                         </li>
                     </ul>
 

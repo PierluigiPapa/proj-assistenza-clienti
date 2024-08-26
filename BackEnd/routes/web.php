@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\MovimentiRicaricaController;
 use App\Http\Controllers\NewPaymentController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +41,15 @@ Route::resource('users', UserController::class);
 Route::post('/process-payment', [PaymentController::class, 'processPayment'])->name('processPayment');
 Route::delete('/movimentiRicarica/{id}', [MovimentiRicaricaController::class, 'destroy'])->name('movimentiRicarica.destroy');
 Route::post('/handlePayment', [NewPaymentController::class, 'handlePayment'])->name('handlePayment');
+
+
+// Rotte CRUD per la tabella della lista degli utenti
+Route::get('logins', [LoginController::class, 'index'])->name('logins.index');
+Route::get('logins/{id}', [LoginController::class, 'show'])->name('logins.show');
+Route::post('logins', [LoginController::class, 'store']);
+Route::put('logins/{id}', [LoginController::class, 'update']);
+Route::delete('logins/{id}', [LoginController::class, 'destroy']);
+
 
 
 
