@@ -79,13 +79,13 @@
                             </div>
 
                             @if (session('success'))
-                            <div class="alert alert-successo">
+                            <div class="alert alert-successo mt-4">
                                 {{ session('success') }}
                              </div>
                             @endif
 
                             @if (session('error'))
-                            <div class="alert alert-errore">
+                            <div class="alert alert-errore mt-4">
                                 {{ session('error') }}
                             </div>
                             @endif
@@ -104,6 +104,34 @@
     </div>
 </main>
 
+<!-- Modal -->
+<div class="modal fade" id="modificaModal" tabindex="-1" aria-labelledby="modificaModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modificaModalLabel">Seleziona i dati da modificare</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="modifica-form">
+                    @foreach($user->movimentiRicarica as $movimento)
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{ $movimento->id }}" id="modifica{{ $movimento->id }}">
+                        <label class="form-check-label" for="modifica{{ $movimento->id }}">
+                            {{ $movimento->opzione_ricarica_label }} - {{ $movimento->ore }} ore
+                        </label>
+                    </div>
+                    @endforeach
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                <button type="button" class="btn btn-primary" onclick="confermaModifiche()">Conferma</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 function aggiornaOre() {
     let select = document.getElementById('IDOpzioneRicarica');
@@ -114,9 +142,17 @@ function aggiornaOre() {
     let paymentSection = document.getElementById('payment-section');
     if (select.value) {
         paymentSection.style.display = 'block';
+        $('#modificaModal').modal('show'); // Mostra il modal
     } else {
         paymentSection.style.display = 'none';
     }
+}
+
+function confermaModifiche() {
+    // Nascondi il modal
+    $('#modificaModal').modal('hide');
+    // Mostra il form di pagamento
+    document.getElementById('payment-section').style.display = 'block';
 }
 
 let form = document.querySelector('#payment-form');
