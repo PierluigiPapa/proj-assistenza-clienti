@@ -8,14 +8,15 @@
             <h3 class="text-light">Lista utenti: {{$totalUsers}}</h3>
         </div>
 
-        <div class="d-flex justify-content-center align-items-center">
+
+        <div class="d-flex justify-content-center align-items-center mt-3">
             <a href="{{ route('users.create') }}" class="btn btn-login">Crea</a>
         </div>
 
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center mt-3">
             <table class="table mt-3">
                 <thead>
-                    <tr class="text-center fs-4">
+                    <tr class="text-center fs-5">
                         <th scope="col">ID</th>
                         <th scope="col">Nome</th>
                         <th scope="col">Cognome</th>
@@ -35,19 +36,17 @@
                         <td>{{ $user->username }}</td>
                         <td>{{ $user->admin ? 'Amministratore' : 'Utente' }}</td>
                         <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#oreModal-{{ $user->id }}">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#oreModal-{{ $user->id }}">
                                 Visualizza le ricariche
                             </button>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="oreModal-{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="oreModalLabel-{{ $user->id }}" aria-hidden="true">
+                            <!-- Modal per visualizzare i movimenti ricarica -->
+                            <div class="modal fade" id="oreModal-{{ $user->id }}" tabindex="-1" aria-labelledby="oreModalLabel-{{ $user->id }}" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="oreModalLabel-{{ $user->id }}">Ricariche di {{ $user->username }}</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             <table class="table">
@@ -76,7 +75,7 @@
                                             </table>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
                                         </div>
                                     </div>
                                 </div>
@@ -85,11 +84,34 @@
                         <td>
                             <a href="{{ route('users.show', $user->id) }}" class="btn btn-secondary"><i class="fa-solid fa-eye"></i></a>
                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-success"><i class="fa-solid fa-pen"></i></a>
-                            <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline-block;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                            </form>
+
+                            <!-- Pulsante per aprire il modale di conferma eliminazione -->
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $user->id }}">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+
+                            <!-- Modal di conferma eliminazione -->
+                            <div class="modal fade" id="deleteModal-{{ $user->id }}" tabindex="-1" aria-labelledby="deleteModalLabel-{{ $user->id }}" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel-{{ $user->id }}">Conferma Eliminazione</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Sei sicuro di voler eliminare l'utente <strong>{{ $user->username }}</strong>?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                                            <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline-block;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Elimina</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     @endforeach
@@ -98,8 +120,6 @@
         </div>
     </div>
 </main>
-
-
 
 <style>
     .btn-login {
