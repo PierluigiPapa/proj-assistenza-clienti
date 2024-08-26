@@ -36,11 +36,13 @@ Route::get('/index', [UserController::class, 'index']);
 
 Route::resource('users', UserController::class);
 
+// Rotte per gestire le opzioni di ricarica //
 Route::post('/process-payment', [PaymentController::class, 'processPayment'])->name('processPayment');
-
 Route::delete('/movimentiRicarica/{id}', [MovimentiRicaricaController::class, 'destroy'])->name('movimentiRicarica.destroy');
-
 Route::post('/handlePayment', [NewPaymentController::class, 'handlePayment'])->name('handlePayment');
+
+
+
 
 
 require __DIR__.'/auth.php';

@@ -3,7 +3,7 @@
 @section('content')
 
 <main>
-    <div class="container mt-5">
+    <div class="container mt-5 mb-5">
         <div class="row">
             <!-- Card con il form di registrazione -->
             <div class="col-md-12">
@@ -55,16 +55,16 @@
                 </div>
             </div>
 
-            <!-- Form di pagamento a destra -->
+            <!-- Form di modifica a destra -->
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title text-center">Effettua una modifica alla ricarica</h3>
-                        <form id="payment-form" method="POST" action="{{ route('handlePayment') }}">
+                        <h3 class="card-title text-center">Modifica una ricarica</h3>
+                        <form id="modifica-form" method="POST" action="{{ route('handlePayment') }}">
                             @csrf
                             <input type="hidden" name="IDLogin" value="{{$user->id}}">
                             <input type="hidden" id="ore" name="ore" value="">
-                            <input type="hidden" name="payment_method_nonce">
+                            <input type="hidden" id="movimentoId" name="movimentoId" value="">
 
                             <!-- Aggiungi il menu a tendina per le opzioni di ricarica -->
                             <div class="form-group">
@@ -90,11 +90,8 @@
                             </div>
                             @endif
 
-                            <div id="payment-section" style="display: none;">
-                                <div id="bt-dropin"></div>
-                                <div class="d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-login mt-3">Paga</button>
-                                </div>
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-login mt-3">Aggiorna</button>
                             </div>
                         </form>
                     </div>
@@ -116,7 +113,7 @@
                 <form id="modifica-form">
                     @foreach($user->movimentiRicarica as $movimento)
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="{{ $movimento->id }}" id="modifica{{ $movimento->id }}">
+                        <input class="form-check-input" type="checkbox" value="{{ $movimento->id }}" id="modifica{{ $movimento->id }}" name="movimentoId">
                         <label class="form-check-label" for="modifica{{ $movimento->id }}">
                             {{ $movimento->opzione_ricarica_label }} - {{ $movimento->ore }} ore
                         </label>
@@ -126,7 +123,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                <button type="button" class="btn btn-primary" onclick="confermaModifiche()">Conferma</button>
+                <button type="button" class="btn btn-login" onclick="confermaModifiche()">Conferma</button>
             </div>
         </div>
     </div>
@@ -138,37 +135,20 @@ function aggiornaOre() {
     var ore = select.options[select.selectedIndex].getAttribute('ore');
     document.getElementById('ore').value = ore;
 
-    // Mostra il form di pagamento quando viene selezionata un'opzione
-    let paymentSection = document.getElementById('payment-section');
+    // Mostra il modal dopo aver selezionato un'opzione
     if (select.value) {
-        paymentSection.style.display = 'block';
-        $('#modificaModal').modal('show'); // Mostra il modal
-    } else {
-        paymentSection.style.display = 'none';
+        $('#modificaModal').modal('show');
     }
 }
 
 function confermaModifiche() {
+    let selectedMovimento = document.querySelector('input[name="movimentoId"]:checked');
+    if (selectedMovimento) {
+        document.getElementById('movimentoId').value = selectedMovimento.value;
+    }
     // Nascondi il modal
     $('#modificaModal').modal('hide');
-    // Mostra il form di pagamento
-    document.getElementById('payment-section').style.display = 'block';
 }
-
-let form = document.querySelector('#payment-form');
-braintree.dropin.create({
-    authorization: 'sandbox_v2smmr6x_6xqmd4knh2cjrrz9',
-    container: '#bt-dropin',
-    locale: 'it' // Imposta la lingua italiana
-}, function (createErr, instance) {
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
-        instance.requestPaymentMethod(function (err, payload) {
-            document.querySelector('input[name="payment_method_nonce"]').value = payload.nonce;
-            form.submit();
-        });
-    });
-});
 </script>
 
 <style>
@@ -194,6 +174,9 @@ braintree.dropin.create({
         background-color: rgb(255, 65, 65);
         color: black
     }
+
+
 </style>
+
 
 @endsection

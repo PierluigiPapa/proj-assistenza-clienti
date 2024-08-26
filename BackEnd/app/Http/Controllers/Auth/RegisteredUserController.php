@@ -44,7 +44,7 @@ class RegisteredUserController extends Controller
             'cognome' => $request->cognome,
             'username' => $request->username,
             'password' => Hash::make($request->password),
-            'admin' => $request->has('is_admin') ? 0 : 1, // Imposta il valore di admin
+            'admin' => $request->has('is_admin') ? 1 : 0, // Imposta il valore di admin
         ]);
 
         // Evento di registrazione

@@ -22,7 +22,7 @@
                         <th scope="col">Cognome</th>
                         <th scope="col">Username</th>
                         <th scope="col">Tipo di utente</th>
-                        <th scope="col">Movimenti Ricarica</th>
+                        <th scope="col">Ricariche</th>
                         <th scope="col">Azioni</th>
                     </tr>
                 </thead>
@@ -36,7 +36,7 @@
                         <td>{{ $user->username }}</td>
                         <td>{{ $user->admin ? 'Amministratore' : 'Utente' }}</td>
                         <td>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#oreModal-{{ $user->id }}">
+                            <button type="button" class="btn btn-ricarica" data-bs-toggle="modal" data-bs-target="#oreModal-{{ $user->id }}">
                                 Visualizza le ricariche
                             </button>
 
@@ -133,6 +133,19 @@
         color: white;
         transition: background-color 0.3s, color 0.3s, filter 0.3s;
         border: 2px solid white;
+    }
+
+    .btn-ricarica {
+        background-color: #091c2e;
+        border: 2px solid white;
+        transition: background-color 0.3s, color 0.3s, filter 0.3s;
+        color: white;
+    }
+
+    .btn-ricarica:hover {
+        background-color: white;
+        border: 2px solid #091c2e;
+        color: #091c2e;
     }
 </style>
 
