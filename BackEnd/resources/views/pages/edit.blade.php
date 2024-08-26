@@ -60,7 +60,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title text-center">Effettua una modifica alla ricarica</h3>
-                        <form id="payment-form" method="POST" action="{{ route('processPayment') }}">
+                        <form id="payment-form" method="POST" action="{{ route('handlePayment') }}">
                             @csrf
                             <input type="hidden" name="IDLogin" value="{{$user->id}}">
                             <input type="hidden" id="ore" name="ore" value="">
@@ -69,7 +69,7 @@
                             <!-- Aggiungi il menu a tendina per le opzioni di ricarica -->
                             <div class="form-group">
                                 <label for="IDOpzioneRicarica"></label>
-                                <select class="form-control" id="IDOpzioneRicarica" name="IDOpzioneRicarica" onchange="updateOre()">
+                                <select class="form-control" id="IDOpzioneRicarica" name="IDOpzioneRicarica" onchange="aggiornaOre()">
                                     <option value="" disabled selected>Seleziona un'opzione di ricarica</option>
                                     <option value="1" ore="6" costo="5.00">Ricarica Base - 5.00€ per 6 ore</option>
                                     <option value="2" ore="12" costo="10.00">Ricarica Standard - 10.00€ per 12 ore</option>
@@ -105,7 +105,7 @@
 </main>
 
 <script>
-function updateOre() {
+function aggiornaOre() {
     let select = document.getElementById('IDOpzioneRicarica');
     var ore = select.options[select.selectedIndex].getAttribute('ore');
     document.getElementById('ore').value = ore;
