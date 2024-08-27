@@ -17,13 +17,13 @@
                         <input type="text" class="form-control" id="" name="descrizione" value="">
 
                         <div class="mb-3 mt-3">
-                            <label for="exampleInputPassword1" class="form-label">Inserisci la quantità di ore per la ricarica</label>
-                            <input type="time" class="form-control" id="exampleInputPassword1" name="ore" value="">
+                            <label for="ore" class="form-label">Inserisci la quantità di ore per la ricarica</label>
+                            <input type="number" class="form-control" id="" name="ore" min="0" max="48" value="">
                         </div>
 
                         <div class="mb-3 mt-3">
-                            <label for="exampleInputPassword1" class="form-label">Inserisci l'importo della ricarica</label>
-                            <input type="number" class="form-control" id="exampleInputPassword1" step="0.01" placeholder="0.00 €" min="0" name="costo" value="">
+                            <label for="costo" class="form-label">Inserisci l'importo della ricarica</label>
+                            <input type="number" class="form-control" id="costo" step="0.01" placeholder="0.00 €" min="0" name="costo" value="">
                         </div>
 
                         <div class="d-flex justify-content-center">
@@ -51,6 +51,5 @@
         border: 2px solid white;
     }
 </style>
-
 
 @endsection

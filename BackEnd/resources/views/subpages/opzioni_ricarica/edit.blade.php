@@ -23,12 +23,12 @@
 
                         <div class="mb-3 mt-3">
                             <label for="exampleInputPassword1" class="form-label">Cambia il nome della tipologia di ricarica</label>
-                            <input type="text" class="form-control" id="" name="descrizione" value="{{ $opzione->descrizione }}">
+                            <input type="text" class="form-control" id="" name="descrizione" value="">
                         </div>
 
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Cambia la quantità di ore</label>
-                            <input type="time" class="form-control" id="exampleInputPassword1" name="ore" value="{{ $opzione->ore }}">
+                            <input type="number" class="form-control" id="" name="ore" min="0" max="48" value="{{$opzione->ore}}">
                         </div>
 
                         <div class="mb-3">

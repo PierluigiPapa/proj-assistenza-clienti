@@ -19,15 +19,22 @@ class OpzioniRicaricaController extends Controller
         return view('subpages.opzioni_ricarica.create', compact('opzioni'));
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $request->validate([
             'descrizione' => 'required|max:50',
             'costo' => 'required|numeric',
-            'ore' => 'required',
+            'ore' => 'required|integer|min:0|max:48',
         ]);
 
-        OpzioniRicarica::create($request->all());
+        // Formattare l'ora nel formato HH:00:00
+        $ore = sprintf('%02d:00:00', $request->input('ore'));
+
+        OpzioniRicarica::create([
+            'descrizione' => $request->input('descrizione'),
+            'costo' => $request->input('costo'),
+            'ore' => $ore,
+        ]);
+
         return redirect()->route('opzioni_ricarica.index');
     }
 
@@ -47,11 +54,11 @@ class OpzioniRicaricaController extends Controller
         $request->validate([
             'descrizione' => 'required|max:50',
             'costo' => 'required|numeric',
-            'ore' => 'required',
+            'ore' => 'required|integer|min:0|max:48',
         ]);
 
-        // Formattare l'ora nel formato HH:SS:00
-        $ore = date('H:i:00', strtotime($request->input('ore')));
+        // Formattare l'ora nel formato HH:00:00
+        $ore = sprintf('%02d:00:00', $request->input('ore'));
 
         $opzioniRicarica->descrizione = $request->input('descrizione');
         $opzioniRicarica->costo = $request->input('costo');
