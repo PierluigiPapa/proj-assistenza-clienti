@@ -9,6 +9,7 @@ use App\Http\Controllers\NewPaymentController;
 
 use App\Http\Controllers\OpzioniRicaricaController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\TipiInterventoController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -52,6 +53,9 @@ Route::resource('logins', LoginController::class);
 
 //Rotte per la tabella della lista delle opzioni delle ricariche
 Route::resource('opzioni_ricarica', OpzioniRicaricaController::class);
+
+//Rotte per la tabella della lista dei tipi di interventi
+Route::resource('tipi_intervento', TipiInterventoController::class);
 
 
 

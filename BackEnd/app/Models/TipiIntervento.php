@@ -11,8 +11,11 @@ class TipiIntervento extends Model
 
     protected $fillable = [
         'tipologia',
+        'costo_gratuito',
         'dettagli',
     ];
+
+    protected $table = 'tipi_intervento';
 
     public function interventi () {
         return $this ->hasMany(Interventi::class, 'ID');

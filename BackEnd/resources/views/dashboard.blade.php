@@ -10,10 +10,12 @@
             </button>
 
             <button class="btn btn-ricariche fw-bold me-5">
-                <a href="/logins">{{ __('Tabella Ricariche') }}</a>
+                <a href="/opzioni_ricarica">{{ __('Tabella Ricariche') }}</a>
             </button>
 
-            <button class="btn btn-primary me-5">Tabella Interventi</button>
+            <button class="btn btn-interventi me-5 fw-bold">
+                <a href="/tipi_intervento">{{ __('Tabella Interventi') }}</a>
+            </button>
         </div>
     </div>
 </div>
@@ -50,8 +52,18 @@
         color: black;
     }
 
+    .btn-interventi {
+        background-color: #46cd2f;
+        border: 2px solid black;
+        color: black;
+    }
 
-
+    .btn-interventi:hover {
+        background-color: #3b9d0e;
+        transition: background-color 0.3s, color 0.3s, filter 0.3s;
+        border: 2px solid black;
+        color: black;
+    }
 </style>
 
 @endsection

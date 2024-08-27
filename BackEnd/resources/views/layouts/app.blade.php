@@ -62,7 +62,7 @@
                             <a class="nav-link" href="/opzioni_ricarica">{{ __('Tabella Ricarica') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/index">{{ __('Tabella Interventi') }}</a>
+                            <a class="nav-link" href="/tipi_intervento">{{ __('Tabella Interventi') }}</a>
                         </li>
                     </ul>
 
