@@ -4,10 +4,13 @@
 
 <main>
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center mt-5">
-            <h3 class="text-light mx-auto">Lista utenti: {{$totalLogins}}</h3>
-            <a href="{{ route('logins.create') }}" class="btn btn-login me-5">Crea</a>
+        <div class="row mt-5">
+            <div class="col-12 d-flex justify-content-between align-items-center">
+                <h3 class="text-light mx-auto">Lista utenti: {{$totalLogins}}</h3>
+                <a href="{{ route('logins.create') }}" class="btn btn-login me-5">Crea</a>
+            </div>
         </div>
+
 
         <div class="d-flex justify-content-center mt-3">
             <table class="table mt-3">
