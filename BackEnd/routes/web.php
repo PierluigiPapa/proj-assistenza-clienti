@@ -1,11 +1,15 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\MovimentiRicaricaController;
 use App\Http\Controllers\NewPaymentController;
+
+use App\Http\Controllers\OpzioniRicaricaController;
 use App\Http\Controllers\LoginController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,5 +49,10 @@ Route::post('/handlePayment', [NewPaymentController::class, 'handlePayment'])->n
 
 // Rotte per la tabella della lista degli utenti
 Route::resource('logins', LoginController::class);
+
+//Rotte per la tabella della lista delle opzioni delle ricariche
+Route::resource('opzioni_ricarica', OpzioniRicaricaController::class);
+
+
 
 require __DIR__.'/auth.php';

@@ -18,4 +18,7 @@ class OpzioniRicarica extends Model
     public function MovimentiRicarica() {
         return $this->hasMany(MovimentiRicarica::class, 'IDOpzioneRicarica');
     }
+
+    protected $table = 'opzioni_ricarica';
+
 }
