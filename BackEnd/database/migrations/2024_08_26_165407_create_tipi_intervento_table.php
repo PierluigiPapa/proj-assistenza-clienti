@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tipi_intervento', function (Blueprint $table) {
             $table->id();
             $table->string('tipologia', 255);
+            $table->boolean('intervento_gratuito')->default(true);
             $table->string('dettagli', 255);
             $table->timestamps();
         });
