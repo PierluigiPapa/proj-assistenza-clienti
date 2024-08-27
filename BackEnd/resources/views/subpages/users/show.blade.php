@@ -15,8 +15,12 @@
                                     <h3 class="card-subtitle mb-2 text-center mt-3">{{$logins->username}}</h3>
                                     <p class="card-text">Nome: {{$logins->nome}}</p>
                                     <p class="card-text">Cognome: {{$logins->cognome}}</p>
-                                    <p class="card-text">Creato il: {{$logins->created_at->setTimezone('Europe/Rome')->format('d-m-Y H:i:s')}}</p>
-                                    <p class="card-text">Aggiornato il: {{$logins->updated_at->setTimezone('Europe/Rome')->format('d-m-Y H:i:s')}}</p>
+                                    <p class="card-text">Data creazione dell'utente: {{ ucfirst($logins->created_at->setTimezone('Europe/Rome')->locale('it')->isoFormat('dddd DD-MM-YYYY')) }}
+                                        ore {{ $logins->created_at->setTimezone('Europe/Rome')->format('H:i:s') }}
+                                    </p>
+                                    <p class="card-text">Data aggiornamento dell'utente: {{ ucfirst($logins->created_at->setTimezone('Europe/Rome')->locale('it')->isoFormat('dddd DD-MM-YYYY')) }}
+                                        ore {{ $logins->created_at->setTimezone('Europe/Rome')->format('H:i:s') }}
+                                    </p>
                                 </div>
                             </div>
                         </div>

@@ -4,13 +4,10 @@
 
 <main>
     <div class="container">
-        {{-- <div class="d-flex justify-content-center align-items-center mt-5">
-            <h3 class="text-light">Lista utenti: {{$totalUsers}}</h3>
-        </div> --}}
-
-        {{-- <div class="d-flex justify-content-center align-items-center mt-3">
-            <a href="{{ route('users.create') }}" class="btn btn-login">Crea</a>
-        </div> --}}
+        <div class="d-flex justify-content-between align-items-center mt-5">
+            <h3 class="text-light mx-auto">Lista utenti: {{$totalLogins}}</h3>
+            <a href="{{ route('logins.create') }}" class="btn btn-login me-5">Crea</a>
+        </div>
 
         <div class="d-flex justify-content-center mt-3">
             <table class="table mt-3">
@@ -21,8 +18,8 @@
                         <th scope="col">Cognome</th>
                         <th scope="col">Username</th>
                         <th scope="col">Tipo di utente</th>
-                        <th scope="col">Creato il:</th>
-                        <th scope="col">Aggiornato il:</th>
+                        <th scope="col">Data creazione</th>
+                        <th scope="col">Data aggiornamento</th>
                         <th scope="col">Azioni</th>
                     </tr>
                 </thead>
@@ -35,12 +32,16 @@
                         <td>{{ $login->cognome }}</td>
                         <td>{{ $login->username }}</td>
                         <td>{{ $login->admin ? 'Amministratore' : 'Utente' }}</td>
-                        <td>{{ $login->created_at }}</td>
-                        <td>{{ $login->updated_at }}</td>
+                        <td>{{ ucfirst($login->created_at->setTimezone('Europe/Rome')->locale('it')->isoFormat('dddd DD-MM-YYYY')) }}
+                            ore {{ $login->created_at->setTimezone('Europe/Rome')->format('H:i:s') }}
+                        </td>
+                        <td>{{ ucfirst($login->updated_at->setTimezone('Europe/Rome')->locale('it')->isoFormat('dddd DD-MM-YYYY')) }}
+                            ore {{ $login->updated_at->setTimezone('Europe/Rome')->format('H:i:s') }}
+                        </td>
                         <td>
                             <a href="{{ route('logins.show', $login->id) }}" class="btn btn-secondary"><i class="fa-solid fa-eye"></i></a>
                             <a href="{{ route('logins.edit', $login->id) }}" class="btn btn-success"><i class="fa-solid fa-pen"></i></a>
-                            <form action="{{ route('users.destroy', $login->id) }}" method="POST" style="display:inline;">
+                            <form action="{{ route('logins.destroy', $login->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>

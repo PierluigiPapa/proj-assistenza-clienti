@@ -43,17 +43,7 @@ Route::delete('/movimentiRicarica/{id}', [MovimentiRicaricaController::class, 'd
 Route::post('/handlePayment', [NewPaymentController::class, 'handlePayment'])->name('handlePayment');
 
 
-// Rotte CRUD per la tabella della lista degli utenti
-Route::get('logins', [LoginController::class, 'index'])->name('logins.index');
-Route::get('logins/{id}', [LoginController::class, 'show'])->name('logins.show');
-Route::get('logins/{id}/edit', [LoginController::class, 'edit'])->name('logins.edit');
-Route::post('logins', [LoginController::class, 'store']);
-Route::put('logins/{id}', [LoginController::class, 'update']);
-Route::delete('logins/{id}', [LoginController::class, 'destroy']);
-
-
-
-
-
+// Rotte per la tabella della lista degli utenti
+Route::resource('logins', LoginController::class);
 
 require __DIR__.'/auth.php';

@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    // Create
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -20,13 +19,16 @@ class LoginController extends Controller
 
         $login = Login::create($validatedData);
 
-        return response()->json($login, 201);
+        return redirect()->route('logins.index');
     }
 
     public function index()
     {
         $logins = Login::all();
-        return view('subpages.users.index', compact('logins'));
+
+        $totalLogins= $logins->count();
+
+        return view('subpages.users.index', compact('logins','totalLogins'));
     }
 
     public function show($id)
@@ -35,7 +37,6 @@ class LoginController extends Controller
         return view('subpages.users.show', compact('logins'));
     }
 
-    // Update
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
@@ -48,22 +49,27 @@ class LoginController extends Controller
         $login = Login::findOrFail($id);
         $login->update($validatedData);
 
-        return response()->json($login);
+        return redirect()->route('logins.index');
     }
 
-    // Delete
     public function destroy($id)
     {
         $login = Login::findOrFail($id);
         $login->delete();
 
-        return response()->json(null, 204);
+        return redirect('/logins');
     }
 
     public function edit($id)
     {
         $login = Login::findOrFail($id);
         return view('subpages.users.edit', compact('login'));
+
     }
+
+    public function create () {
+        return view('subpages.users.create');
+    }
+
 }
 

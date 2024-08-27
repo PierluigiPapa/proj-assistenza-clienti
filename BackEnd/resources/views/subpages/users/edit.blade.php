@@ -10,7 +10,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title text-center">Modifica utente {{$login->username}}</h3>
-                        <form action="{{ route('users.update', $login->id) }}" method="POST">
+                        <form action="{{ route('logins.update', $login->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="mb-3">
