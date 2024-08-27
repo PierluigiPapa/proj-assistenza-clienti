@@ -39,7 +39,7 @@
                         <td>{{ $login->updated_at }}</td>
                         <td>
                             <a href="{{ route('logins.show', $login->id) }}" class="btn btn-secondary"><i class="fa-solid fa-eye"></i></a>
-                            <a href="{{ route('users.edit', $login->id) }}" class="btn btn-success"><i class="fa-solid fa-pen"></i></a>
+                            <a href="{{ route('logins.edit', $login->id) }}" class="btn btn-success"><i class="fa-solid fa-pen"></i></a>
                             <form action="{{ route('users.destroy', $login->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')

@@ -59,4 +59,11 @@ class LoginController extends Controller
 
         return response()->json(null, 204);
     }
+
+    public function edit($id)
+    {
+        $login = Login::findOrFail($id);
+        return view('subpages.users.edit', compact('login'));
+    }
 }
+
