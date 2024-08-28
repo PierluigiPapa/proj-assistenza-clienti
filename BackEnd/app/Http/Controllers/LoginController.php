@@ -61,7 +61,8 @@ class LoginController extends Controller
         $login = Login::findOrFail($id);
         $login->delete();
 
-        return redirect('/logins');
+
+        return redirect()->route('logins.index');
     }
 
     public function edit($id)

@@ -42,15 +42,68 @@
                             ore {{ $login->updated_at->setTimezone('Europe/Rome')->format('H:i:s') }}
                         </td>
                         <td>
-                            <a href="{{ route('logins.show', $login->id) }}" class="btn btn-secondary"><i class="fa-solid fa-eye"></i></a>
+                            <a href="#" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#loginModal{{ $login->id }}"><i class="fa-solid fa-eye"></i></a>
                             <a href="{{ route('logins.edit', $login->id) }}" class="btn btn-success"><i class="fa-solid fa-pen"></i></a>
-                            <form action="{{ route('logins.destroy', $login->id) }}" method="POST" style="display:inline;">
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $login->id }}"><i class="fa-solid fa-trash"></i></button>
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                             </form>
                         </td>
                     </tr>
+
+                    <!-- Modal Dettagli -->
+                    <div class="modal fade" id="loginModal{{ $login->id }}" tabindex="-1" aria-labelledby="loginModalLabel{{ $login->id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="card" style="width: 100%;">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <h1 class="card-title text-center">Dettagli utente</h1>
+                                                    <h3 class="card-subtitle mb-2 text-center mt-3">{{$login->username}}</h3>
+                                                    <p class="card-text">Nome: {{$login->nome}}</p>
+                                                    <p class="card-text">Cognome: {{$login->cognome}}</p>
+                                                    <p class="card-text">Data creazione dell'utente: {{ ucfirst($login->created_at->setTimezone('Europe/Rome')->locale('it')->isoFormat('dddd DD-MM-YYYY')) }}
+                                                        ore {{ $login->created_at->setTimezone('Europe/Rome')->format('H:i:s') }}
+                                                    </p>
+                                                    <p class="card-text">Data aggiornamento dell'utente: {{ ucfirst($login->created_at->setTimezone('Europe/Rome')->locale('it')->isoFormat('dddd DD-MM-YYYY')) }}
+                                                        ore {{ $login->created_at->setTimezone('Europe/Rome')->format('H:i:s') }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Delete -->
+                    <div class="modal fade" id="deleteModal{{ $login->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $login->id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLabel{{ $login->id }}">Conferma Eliminazione</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Sei sicuro di voler eliminare <span class="fw-bold">{{$login->username}}</span>?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                                    <form action="{{ route('logins.destroy', $login->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Elimina</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     @endforeach
                 </tbody>
             </table>

@@ -44,22 +44,46 @@
                 </div>
             </div>
         </div>
+        <div class="d-flex justify-content-center align-items-center">
+            <button class="btn btn-back mt-5">
+                <a href="/logins">Torna Indietro</a>
+            </button>
+        </div>
     </div>
 </main>
 
-<style>
-    .btn-login {
-        background-color: #3498DB;
-        border: 2px solid white;
-        color: white;
-    }
 
-    .btn-login:hover {
-        background-color: #194665;
-        color: white;
-        transition: background-color 0.3s, color 0.3s, filter 0.3s;
-        border: 2px solid white;
-    }
+<style>
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.btn-login {
+    background-color: #3498DB;
+    border: 2px solid white;
+    color: white;
+}
+
+.btn-login:hover {
+    background-color: #194665;
+    color: white;
+    transition: background-color 0.3s, color 0.3s, filter 0.3s;
+    border: 2px solid white;
+}
+
+.btn-back {
+    background-color: white;
+    border: 2px solid #091c2e;
+    color: #091c2e;
+}
+
+.btn-back:hover {
+    background-color: #091c2e;
+    border: 2px solid white;
+    transition: background-color 0.3s, color 0.3s, filter 0.3s;
+    color: white;
+}
 </style>
 
 @endsection
