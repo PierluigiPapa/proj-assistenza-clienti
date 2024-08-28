@@ -30,13 +30,10 @@
 
 <body>
     <div id="app">
-
-
         <nav class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
                     <div class="logo_laravel">
-
                         </svg>
                     </div>
                     {{-- config('app.name', 'Laravel') --}}
@@ -51,18 +48,6 @@
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="http://localhost:5174/">{{ __('Home') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/index">{{ __('Indice') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/logins">{{ __('Tabella Utente') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/opzioni_ricarica">{{ __('Tabella Ricarica') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/tipi_intervento">{{ __('Tabella Interventi') }}</a>
                         </li>
                     </ul>
 
@@ -103,9 +88,44 @@
             </div>
         </nav>
 
-        <main class="">
-            @yield('content')
-        </main>
+        <div class="container-fluid">
+            <div class="row">
+                <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
+                    <div class="position-sticky">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active nav-sidebar" aria-current="page" href="/index">
+                                    <i class="fas fa-home"></i>
+                                    Indice
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-sidebar" href="/logins">
+                                    <i class="fas fa-user"></i>
+                                    Tabella Utente
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-sidebar" href="/opzioni_ricarica">
+                                    <i class="fas fa-battery-full"></i>
+                                    Tabella Ricarica
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-sidebar" href="/tipi_intervento">
+                                    <i class="fas fa-tools"></i>
+                                    Tabella Interventi
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                    @yield('content')
+                </main>
+            </div>
+        </div>
     </div>
 </body>
 
@@ -116,6 +136,20 @@
 
     .nav-link {
         color: black;
+    }
+
+    #sidebar {
+        background-color: #091c2e;
+        height: 100vh;
+        position: fixed;
+    }
+
+    .nav-sidebar {
+        color: white;
+    }
+
+    .nav-sidebar:hover {
+        color: gray;
     }
 
 </style>
