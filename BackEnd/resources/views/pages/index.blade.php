@@ -82,7 +82,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td></td>
+                        <td>{{ $user->dettagliConto ? $user->dettagliConto->saldo : 'Saldo non disponibile'}}</td>
                         <td>
                             <a href="{{ route('users.show', $user->id) }}" class="btn btn-secondary"><i class="fa-solid fa-eye"></i></a>
                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-success"><i class="fa-solid fa-pen"></i></a>

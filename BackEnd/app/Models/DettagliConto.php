@@ -13,7 +13,7 @@ class DettagliConto extends Model
 
     protected $fillable = [
         'IDLogin',
-        'Saldo',
+        'saldo',
     ];
 
     public function login () {

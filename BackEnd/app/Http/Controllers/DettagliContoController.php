@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\DettagliConto;
 
 class DettagliContoController extends Controller
@@ -10,29 +11,36 @@ class DettagliContoController extends Controller
     public function index()
     {
         $dettagli = DettagliConto::all();
+        $dettagli = DettagliConto::with('login')->get();
         return view('subpages.dettagli_conto.index', compact('dettagli'));
     }
 
-    public function create()
-    {
-        return view('subpages.dettagli_conto.create');
+    public function create() {
+        $users = DB::table('login')->get();
+        return view('subpages.dettagli_conto.create', compact('users'));
     }
 
-    public function store(Request $request)
-    {
+
+    public function store(Request $request) {
         $request->validate([
-            'IDLogin' => 'required',
+            'user_id' => 'required',
             'saldo' => 'required',
         ]);
 
-        DettagliConto::create($request->all());
+        \Log::info('Dati ricevuti:', $request->all());
 
-        return redirect()->route('subpages.dettagli_conto.index')->with('success', 'Dettaglio conto creato con successo.');
+        DettagliConto::create([
+            'IDLogin' => $request->user_id,
+            'saldo' => $request->saldo,
+        ]);
+
+        return redirect()->route('dettagli_conto.index')->with('success', 'Dettaglio conto creato con successo.');
     }
+
 
     public function show(DettagliConto $dettagliConto)
     {
-        return view('subpages.dettagli_conto.show', compact('dettagliConto'));
+        return view('subpages.dettagli_conto.show', compact('dettagli'));
     }
 
     public function edit(DettagliConto $dettagliConto)

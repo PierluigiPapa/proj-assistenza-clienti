@@ -11,7 +11,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = Login::with('movimentiRicarica')->get();
+        $users = Login::with('movimentiRicarica', 'dettagliConto')->get();
         $totalUsers = $users->count();
         return view('pages.index', compact('users', 'totalUsers'));
     }
