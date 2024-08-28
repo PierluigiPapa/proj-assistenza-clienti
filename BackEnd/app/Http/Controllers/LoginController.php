@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Login;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -16,6 +17,9 @@ class LoginController extends Controller
             'password' => 'required|min:6',
             'admin' => 'required|boolean',
         ]);
+
+
+        $validatedData['password'] = Hash::make($validatedData['password']);
 
         $login = Login::create($validatedData);
 
