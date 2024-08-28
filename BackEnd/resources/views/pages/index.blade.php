@@ -23,6 +23,7 @@
                         <th scope="col">Username</th>
                         <th scope="col">Tipo di utente</th>
                         <th scope="col">Ricariche</th>
+                        <th scope="col">Saldo</th>
                         <th scope="col">Azioni</th>
                     </tr>
                 </thead>
@@ -37,7 +38,7 @@
                         <td>{{ $user->admin ? 'Amministratore' : 'Utente' }}</td>
                         <td>
                             <button type="button" class="btn btn-ricarica" data-bs-toggle="modal" data-bs-target="#oreModal-{{ $user->id }}">
-                                Visualizza le ricariche
+                                Visualizza
                             </button>
 
                             <!-- Modal per visualizzare i movimenti ricarica -->
@@ -81,6 +82,7 @@
                                 </div>
                             </div>
                         </td>
+                        <td></td>
                         <td>
                             <a href="{{ route('users.show', $user->id) }}" class="btn btn-secondary"><i class="fa-solid fa-eye"></i></a>
                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-success"><i class="fa-solid fa-pen"></i></a>

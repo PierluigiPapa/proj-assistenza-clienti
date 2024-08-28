@@ -82,10 +82,9 @@
 <script>
 function updateOre() {
     let select = document.getElementById('IDOpzioneRicarica');
-    var ore = select.options[select.selectedIndex].getAttribute('ore');
-    document.getElementById('ore').value = ore;
+    let ore = select.options[select.selectedIndex].getAttribute('ore');
+    document.getElementById('ore').value = ore ? ore : '';
 }
-
 </script>
 
 <style>
@@ -111,8 +110,6 @@ function updateOre() {
         background-color: rgb(255, 65, 65);
         color: black
     }
-
-
 </style>
 
 @endsection
