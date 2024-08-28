@@ -9,6 +9,8 @@ class DettagliConto extends Model
 {
     use HasFactory;
 
+    protected $table = 'dettagli_conto';
+
     protected $fillable = [
         'IDLogin',
         'Saldo',

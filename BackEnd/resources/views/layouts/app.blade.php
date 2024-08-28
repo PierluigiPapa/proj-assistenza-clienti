@@ -117,6 +117,12 @@
                                     Tabella Interventi
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-sidebar" href="/dettagli_conto">
+                                    <i class="fas fa-wallet"></i>
+                                    Tabella Saldo
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </nav>

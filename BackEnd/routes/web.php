@@ -10,6 +10,7 @@ use App\Http\Controllers\NewPaymentController;
 use App\Http\Controllers\OpzioniRicaricaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TipiInterventoController;
+use App\Http\Controllers\DettagliContoController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -56,6 +57,9 @@ Route::resource('opzioni_ricarica', OpzioniRicaricaController::class);
 
 //Rotte per la tabella della lista dei tipi di interventi
 Route::resource('tipi_intervento', TipiInterventoController::class);
+
+//Rotte per la tabella della lista dei tipi di interventi
+Route::resource('dettagli_conto', DettagliContoController::class);
 
 
 
