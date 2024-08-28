@@ -11,7 +11,7 @@ class TipiIntervento extends Model
 
     protected $fillable = [
         'tipologia',
-        'costo_gratuito',
+        'intervento_gratuito',
         'dettagli',
     ];
 

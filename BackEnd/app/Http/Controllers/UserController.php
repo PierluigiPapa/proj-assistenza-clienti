@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    // Read: mostra tutti gli utenti
+
     public function index()
     {
         $users = Login::with('movimentiRicarica')->get();
@@ -16,13 +16,11 @@ class UserController extends Controller
         return view('pages.index', compact('users', 'totalUsers'));
     }
 
-    // Create: mostra il form per creare un nuovo utente
     public function create()
     {
         return view('pages.create');
     }
 
-    // Store: salva un nuovo utente nel database
     public function store(Request $request)
     {
         $request->validate([
@@ -46,7 +44,7 @@ class UserController extends Controller
         return redirect('/users')->with('success', 'User saved!');
     }
 
-    // Show: mostra un singolo utente
+
     public function show($id)
     {
         $user = Login::find($id);
@@ -56,14 +54,14 @@ class UserController extends Controller
         return view('pages.show', compact('user'));
     }
 
-    // Edit: mostra il form per modificare un utente esistente
+
     public function edit($id)
     {
         $user = Login::findOrFail($id);
         return view('pages.edit', compact('user'));
     }
 
-    // Update: aggiorna un utente esistente nel database
+
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -86,7 +84,6 @@ class UserController extends Controller
         return redirect('/users')->with('success', 'User updated!');
     }
 
-    // Delete: elimina un utente dal database
     public function destroy($id)
     {
         $user = Login::findOrFail($id);
