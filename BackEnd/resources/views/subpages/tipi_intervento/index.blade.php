@@ -5,8 +5,8 @@
 <main>
     <div class="container">
         <div class="row mt-5">
-            <div class="col-12 d-flex justify-content-center align-items-center">
-                <a href="{{ route('tipi_intervento.create') }}" class="btn btn-login me-5">Crea</a>
+            <div class="d-flex justify-content-center align-items-center">
+                <a href="{{ route('tipi_intervento.create') }}" class="btn btn-login">Crea</a>
             </div>
         </div>
 
@@ -74,7 +74,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    Sei sicuro di voler eliminare il tipo di <span class="fw-bold">{{$intervento->dettagli}}</span>?
+                                    Sei sicuro di voler eliminare <span class="fw-bold">{{$intervento->dettagli}}</span>?
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
