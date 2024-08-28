@@ -16,9 +16,11 @@
                                     <p class="card-text">Costo: {{ number_format($opzione->costo, 2, ',', '.') }} €</p>
                                     <p class="card-text">Ore: {{ sprintf('%01d', $opzione->ore) }}</p>
                                     <p class="card-text">Tipologia di ricarica inserita {{ ucfirst($opzione->created_at->setTimezone('Europe/Rome')->locale('it')->isoFormat('dddd DD-MM-YYYY')) }}
-                                        ore {{ $opzione->created_at->setTimezone('Europe/Rome')->format('H:i:s') }}</p>
+                                        ore {{ $opzione->created_at->setTimezone('Europe/Rome')->format('H:i:s') }}
+                                    </p>
                                     <p class="card-text">Tipologia di ricarica modificata {{ ucfirst($opzione->updated_at->setTimezone('Europe/Rome')->locale('it')->isoFormat('dddd DD-MM-YYYY')) }}
-                                        ore {{ $opzione->updated_at->setTimezone('Europe/Rome')->format('H:i:s') }}</p>
+                                        ore {{ $opzione->updated_at->setTimezone('Europe/Rome')->format('H:i:s') }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
