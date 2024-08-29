@@ -33,7 +33,8 @@ class NewPaymentController extends Controller {
         $movimento->paypal_orderid = $paypalOrderId;
         $movimento->save();
 
-        \Log::info('Movimento salvato:', $movimento);
+        // Converti l'oggetto in un array per il log
+        \Log::info('Movimento salvato:', $movimento->toArray());
         return response()->json(['message' => 'Dati aggiornati con successo.']);
     }
 }

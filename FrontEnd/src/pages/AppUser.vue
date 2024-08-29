@@ -14,51 +14,56 @@ export default {
     };
   },
   mounted() {
-    initializeDropin('#dropin-container', 'sandbox_jy6vfhf7_6xqmd4knh2cjrrz9')
-      .then(instance => {
-        this.dropinInstance = instance;
-      })
-      .catch(err => {
-        console.error('Errore nell\'inizializzazione di Drop-in:', err);
-      });
+  initializeDropin('#dropin-container', 'sandbox_jy6vfhf7_6xqmd4knh2cjrrz9')
+    .then(instance => {
+      this.dropinInstance = instance;
+    })
+    .catch(err => {
+      console.error('Errore nell\'inizializzazione di Drop-in:', err);
+    });
   },
   methods: {
     handlePayment() {
-      if (!this.selectedOption || !this.selectedHours) {
-      console.error('Opzione e ore non selezionate.');
-      return;
-    }
-    
-    requestPaymentMethod(this.dropinInstance).then(nonce => {
-      console.log('Nonce generato:', nonce);
-      console.log('Dati inviati:', {
-        paymentMethodNonce: nonce,
-        IDLogin: 1,
-        IDOpzioneRicarica: this.selectedOption,
-        ore: this.selectedHours,
-      });
+  if (!this.selectedOption || !this.selectedHours) {
+    console.error('Opzione e ore non selezionate.');
+    return;
+  }
 
-      axios.post(`${store.apiUrlBackEnd}/api/process-payment`, {
-        paymentMethodNonce: nonce,
-        IDLogin: 1,
-        IDOpzioneRicarica: this.selectedOption,
-        ore: this.selectedHours,
-      })
-      .then(response => {
-        console.log('Risposta dal server:', response.data);
-      })
-      .catch(error => {
-        if (error.response) {
-          console.error('Errore nella richiesta POST:', error.response.data);
-        } else {
-          console.error('Errore nella richiesta POST:', error.message);
-        }
-      });
-    })
-    .catch(err => {
-      console.error('Errore nella generazione del nonce:', err);
+  if (!this.dropinInstance) {
+    console.error('Drop-in non inizializzato.');
+    return;
+  }
+
+  requestPaymentMethod(this.dropinInstance).then(nonce => {
+    console.log('Nonce generato:', nonce);
+    console.log('Dati inviati:', {
+      paymentMethodNonce: nonce,
+      IDLogin: 1,
+      IDOpzioneRicarica: this.selectedOption,
+      ore: this.selectedHours,
     });
-  },
+
+    axios.post(`${store.apiUrlBackEnd}/api/process-payment`, {
+      paymentMethodNonce: nonce,
+      IDLogin: 1,
+      IDOpzioneRicarica: this.selectedOption,
+      ore: this.selectedHours,
+    })
+    .then(response => {
+      console.log('Risposta dal server:', response.data);
+    })
+    .catch(error => {
+      if (error.response) {
+        console.error('Errore nella richiesta POST:', error.response.data);
+      } else {
+        console.error('Errore nella richiesta POST:', error.message);
+      }
+    });
+  })
+  .catch(err => {
+    console.error('Errore nella generazione del nonce:', err);
+  });
+},
 
   handleOptionChange(event) {
     const selectedOption = event.target.value;
