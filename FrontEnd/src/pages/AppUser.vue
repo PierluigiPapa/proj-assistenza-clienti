@@ -1,7 +1,7 @@
 <script>
 import axios from 'axios';
 import { initializeDropin, requestPaymentMethod } from '../payment.js';
-import { store } from '../store.js'; // Importa lo store
+import { store } from '../store.js';
 
 export default {
   name: 'AppUser',
@@ -10,7 +10,7 @@ export default {
       dropinInstance: null,
       selectedOption: null,
       selectedHours: null,
-      movimentoId: 1, // Assicurati che questo valore sia corretto
+      movimentoId: 1,
     };
   },
   mounted() {
@@ -19,41 +19,59 @@ export default {
         this.dropinInstance = instance;
       })
       .catch(err => {
-        console.error(err);
+        console.error('Errore nell\'inizializzazione di Drop-in:', err);
       });
   },
   methods: {
     handlePayment() {
-      requestPaymentMethod(this.dropinInstance)
-      .then(nonce => {
-        console.log('Nonce generato:', nonce); 
-        // Invia il nonce e altri dati al server
-        axios.post(`${store.apiUrlBackEnd}/api/process-payment`, {
-          paymentMethodNonce: nonce,
-          IDLogin: 1,
-          IDOpzioneRicarica: this.selectedOption,
-          ore: this.selectedHours,
-        })
-        .then(response => {
-          console.log('Risposta dal server:', response.data);
-        })
-        .catch(error => {
-          console.error('Errore nella richiesta POST:', error); 
-        });
-      })
-      .catch(err => {
-        console.error('Errore nella generazione del nonce:', err); 
-      });
-    },
-    handleOptionChange(event) {
-      const selectedOption = event.target.value;
-      const selectedHours = event.target.options[event.target.selectedIndex].getAttribute('ore');
-      this.selectedOption = selectedOption;
-      this.selectedHours = selectedHours;
+      if (!this.selectedOption || !this.selectedHours) {
+      console.error('Opzione e ore non selezionate.');
+      return;
     }
+    
+    requestPaymentMethod(this.dropinInstance).then(nonce => {
+      console.log('Nonce generato:', nonce);
+      console.log('Dati inviati:', {
+        paymentMethodNonce: nonce,
+        IDLogin: 1,
+        IDOpzioneRicarica: this.selectedOption,
+        ore: this.selectedHours,
+      });
+
+      axios.post(`${store.apiUrlBackEnd}/api/process-payment`, {
+        paymentMethodNonce: nonce,
+        IDLogin: 1,
+        IDOpzioneRicarica: this.selectedOption,
+        ore: this.selectedHours,
+      })
+      .then(response => {
+        console.log('Risposta dal server:', response.data);
+      })
+      .catch(error => {
+        if (error.response) {
+          console.error('Errore nella richiesta POST:', error.response.data);
+        } else {
+          console.error('Errore nella richiesta POST:', error.message);
+        }
+      });
+    })
+    .catch(err => {
+      console.error('Errore nella generazione del nonce:', err);
+    });
+  },
+
+  handleOptionChange(event) {
+    const selectedOption = event.target.value;
+    const selectedHours = event.target.options[event.target.selectedIndex].getAttribute('ore');
+    this.selectedOption = selectedOption;
+    this.selectedHours = selectedHours;
+    console.log('Opzione selezionata:', selectedOption);
+    console.log('Ore selezionate:', selectedHours);
   }
 }
+}
 </script>
+
 
 <template>
   <div class="container mb-5">
@@ -80,7 +98,7 @@ export default {
                       <h3 class="card-title text-center">Form intervento</h3>
                     </div>
                   </div>
-                 </div>
+                </div>
                 
                 <div class="col-6">
                   <div class="card" style="height: 100%;">
@@ -88,8 +106,8 @@ export default {
                       <h3 class="card-title text-center">Inserisci una ricarica</h3>
 
                       <form id="ricarica-form">
-                        <input type="hidden" name="IDLogin" value="1"> 
-                        <input type="hidden" id="ore" name="ore" value="6"> 
+                        <input type="hidden" name="IDLogin" value=""> 
+                        <input type="hidden" id="ore" name="ore" value=""> 
                         
                         <div class="form-group">
                           <label for="IDOpzioneRicarica"></label>
@@ -102,8 +120,6 @@ export default {
                           </select>
                         </div>
                         
-                        <!-- Contenitore per Braintree Drop-in -->
-                         
                         <div id="dropin-container"></div>
                         <div class="d-flex justify-content-center align-items-center">
                           <button type="button" class="btn btn-login" @click="handlePayment">Paga</button>

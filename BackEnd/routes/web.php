@@ -1,17 +1,13 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\MovimentiRicaricaController;
 use App\Http\Controllers\NewPaymentController;
-
 use App\Http\Controllers\OpzioniRicaricaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TipiInterventoController;
 use App\Http\Controllers\DettagliContoController;
-
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,23 +40,19 @@ Route::get('/index', [UserController::class, 'index']);
 Route::resource('users', UserController::class);
 
 // Rotte per gestire le opzioni di ricarica //
-Route::post('/process-payment', [PaymentController::class, 'processPayment'])->name('processPayment');
 Route::delete('/movimentiRicarica/{id}', [MovimentiRicaricaController::class, 'destroy'])->name('movimentiRicarica.destroy');
 Route::post('/handlePayment', [NewPaymentController::class, 'handlePayment'])->name('handlePayment');
-
 
 // Rotte per la tabella della lista degli utenti
 Route::resource('logins', LoginController::class);
 
-//Rotte per la tabella della lista delle opzioni delle ricariche
+// Rotte per la tabella della lista delle opzioni delle ricariche
 Route::resource('opzioni_ricarica', OpzioniRicaricaController::class);
 
-//Rotte per la tabella della lista dei tipi di interventi
+// Rotte per la tabella della lista dei tipi di interventi
 Route::resource('tipi_intervento', TipiInterventoController::class);
 
-//Rotte per la tabella della lista dei tipi di interventi
+// Rotte per la tabella della lista dei tipi di interventi
 Route::resource('dettagli_conto', DettagliContoController::class);
-
-
 
 require __DIR__.'/auth.php';

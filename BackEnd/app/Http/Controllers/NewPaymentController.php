@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\MovimentiRicarica;
 
-class NewPaymentController extends Controller
-{
-    public function handlePayment(Request $request)
-    {
+class NewPaymentController extends Controller {
+    public function handlePayment(Request $request) {
         // Log per debugging
         \Log::info('Richiesta ricevuta:', $request->all());
 
@@ -16,7 +14,7 @@ class NewPaymentController extends Controller
         $request->validate([
             'IDLogin' => 'required|integer',
             'IDOpzioneRicarica' => 'required|integer',
-            'ore' => 'required|date_format:H:i:s',
+            'ore' => 'required',
             'paymentMethodNonce' => 'required|string',
         ]);
 
@@ -36,7 +34,6 @@ class NewPaymentController extends Controller
         $movimento->save();
 
         \Log::info('Movimento salvato:', $movimento);
-
         return response()->json(['message' => 'Dati aggiornati con successo.']);
     }
 }
