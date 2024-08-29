@@ -26,6 +26,11 @@ export default {
                 <li class="nav-item">
                     <router-link :to="{name: 'servizi'}" class="nav-link">I nostri servizi</router-link>
                 </li>
+
+                <li class="nav-item">
+                    <router-link :to="{name: 'utente'}" class="nav-link">Area utente</router-link>
+                </li>
+                
             </ul>
         </div>
 
