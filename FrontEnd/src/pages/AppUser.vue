@@ -1,36 +1,55 @@
 <script>
-import dropin from 'braintree-web-drop-in';
+import axios from 'axios';
+import { initializeDropin, requestPaymentMethod } from '../payment.js';
+import { store } from '../store.js'; // Importa lo store
 
 export default {
   name: 'AppUser',
   data() {
     return {
       dropinInstance: null,
+      selectedOption: null,
+      selectedHours: null,
+      movimentoId: 1, // Assicurati che questo valore sia corretto
     };
   },
   mounted() {
-    dropin.create({
-      authorization: 'sandbox_jy6vfhf7_6xqmd4knh2cjrrz9',
-      container: '#dropin-container',
-      locale: 'IT',
-    }, (err, instance) => {
-      if (err) {
+    initializeDropin('#dropin-container', 'sandbox_jy6vfhf7_6xqmd4knh2cjrrz9')
+      .then(instance => {
+        this.dropinInstance = instance;
+      })
+      .catch(err => {
         console.error(err);
-        return;
-      }
-      this.dropinInstance = instance;
-    });
+      });
   },
   methods: {
-    requestPaymentMethod() {
-      this.dropinInstance.requestPaymentMethod((err, payload) => {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        // Invia il payload.nonce al tuo server
-        console.log(payload.nonce);
+    handlePayment() {
+      requestPaymentMethod(this.dropinInstance)
+      .then(nonce => {
+        console.log('Nonce generato:', nonce); 
+        // Invia il nonce e altri dati al server
+        axios.post(`${store.apiUrlBackEnd}/api/process-payment`, {
+          paymentMethodNonce: nonce,
+          IDLogin: 1,
+          IDOpzioneRicarica: this.selectedOption,
+          ore: this.selectedHours,
+        })
+        .then(response => {
+          console.log('Risposta dal server:', response.data);
+        })
+        .catch(error => {
+          console.error('Errore nella richiesta POST:', error); 
+        });
+      })
+      .catch(err => {
+        console.error('Errore nella generazione del nonce:', err); 
       });
+    },
+    handleOptionChange(event) {
+      const selectedOption = event.target.value;
+      const selectedHours = event.target.options[event.target.selectedIndex].getAttribute('ore');
+      this.selectedOption = selectedOption;
+      this.selectedHours = selectedHours;
     }
   }
 }
@@ -69,17 +88,17 @@ export default {
                       <h3 class="card-title text-center">Inserisci una ricarica</h3>
 
                       <form id="ricarica-form">
-                        <input type="hidden" name="IDLogin" value="">
-                        <input type="hidden" id="ore" name="ore" value="">
+                        <input type="hidden" name="IDLogin" value="1"> 
+                        <input type="hidden" id="ore" name="ore" value="6"> 
                         
                         <div class="form-group">
                           <label for="IDOpzioneRicarica"></label>
-                          <select class="form-control me-2" id="IDOpzioneRicarica" name="IDOpzioneRicarica" @change="requestPaymentMethod">
+                          <select class="form-control me-2" id="IDOpzioneRicarica" name="IDOpzioneRicarica" @change="handleOptionChange">
                             <option value="" disabled selected>Seleziona un'opzione di ricarica</option>
-                            <option value="1" ore="6" costo="5.00">Ricarica Base - 5.00€ per 6 ore</option>
-                            <option value="2" ore="12" costo="10.00">Ricarica Standard - 10.00€ per 12 ore</option>
-                            <option value="3" ore="24" costo="20.00">Ricarica Avanzata - 20.00€ per 24 ore</option>
-                            <option value="4" ore="48" costo="50.00">Ricarica Elite - 50.00€ per 48 ore</option>
+                            <option value="1" ore="06:00:00" costo="5.00">Ricarica Base - 5.00€ per 6 ore</option>
+                            <option value="2" ore="12:00:00" costo="10.00">Ricarica Standard - 10.00€ per 12 ore</option>
+                            <option value="3" ore="24:00:00" costo="20.00">Ricarica Avanzata - 20.00€ per 24 ore</option>
+                            <option value="4" ore="48:00:00" costo="50.00">Ricarica Elite - 50.00€ per 48 ore</option>
                           </select>
                         </div>
                         
@@ -87,7 +106,7 @@ export default {
                          
                         <div id="dropin-container"></div>
                         <div class="d-flex justify-content-center align-items-center">
-                          <button type="button" class="btn btn-login" @click="requestPaymentMethod">Paga</button>
+                          <button type="button" class="btn btn-login" @click="handlePayment">Paga</button>
                         </div>
                       </form>
                     </div>
@@ -102,14 +121,11 @@ export default {
   </div>
 </template>
 
-
 <style lang="scss">
-
 .btn-login {
   background-color: #3498DB;
   border: 2px solid white;
   color: white;
-    
 }
 
 .btn-login:hover {
@@ -118,5 +134,4 @@ export default {
   transition: background-color 0.3s, color 0.3s, filter 0.3s;
   border: 2px solid white;
 }
-
 </style>

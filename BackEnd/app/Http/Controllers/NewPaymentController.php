@@ -9,36 +9,34 @@ class NewPaymentController extends Controller
 {
     public function handlePayment(Request $request)
     {
+        // Log per debugging
+        \Log::info('Richiesta ricevuta:', $request->all());
+
         // Validazione dei dati
         $request->validate([
             'IDLogin' => 'required|integer',
             'IDOpzioneRicarica' => 'required|integer',
-            'ore' => 'required|integer',
-            'movimentoId' => 'required|integer',
+            'ore' => 'required|date_format:H:i:s',
+            'paymentMethodNonce' => 'required|string',
         ]);
 
         // Ottieni i dati dal form
         $userId = $request->input('IDLogin');
         $opzioneRicaricaId = $request->input('IDOpzioneRicarica');
-        $ore = (int) $request->input('ore');
-        $movimentoId = $request->input('movimentoId');
-        \Log::info('Valore di ore: ' . $ore);
+        $ore = $request->input('ore');
+        $paypalOrderId = $request->input('paymentMethodNonce');
 
-        // Converti il valore delle ore in formato HH:MM:SS
-        $formattedOre = sprintf('%02d:00:00', $ore);
+        // Crea un nuovo movimento
+        $movimento = new MovimentiRicarica();
+        $movimento->IDOpzioneRicarica = $opzioneRicaricaId;
+        $movimento->IDLogin = $userId;
+        $movimento->data = now();
+        $movimento->ore = $ore;
+        $movimento->paypal_orderid = $paypalOrderId;
+        $movimento->save();
 
-        // Esegui l'aggiornamento del movimento specifico
-        $movimento = MovimentiRicarica::where('IDLogin', $userId)->where('id', $movimentoId)->first();
-        if ($movimento) {
-            $movimento->IDOpzioneRicarica = $opzioneRicaricaId;
-            $movimento->ore = $formattedOre;
-            $movimento->save();
-            return redirect()->back()->with('success', 'Dati aggiornati con successo.');
-        } else {
-            // Gestisci il caso in cui il movimento non esista
-            return redirect()->back()->with('error', 'Movimento non trovato.');
-        }
+        \Log::info('Movimento salvato:', $movimento);
+
+        return response()->json(['message' => 'Dati aggiornati con successo.']);
     }
 }
-
-
