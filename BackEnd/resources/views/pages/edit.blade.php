@@ -2,7 +2,7 @@
 
 @section('content')
 
-<main>
+{{-- <main>
     <div class="container mt-5 mb-5">
         <div class="row">
             <!-- Card con il form di registrazione -->
@@ -176,7 +176,7 @@ function confermaModifiche() {
     }
 
 
-</style>
+</style> --}}
 
 
 @endsection
