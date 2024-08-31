@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Login;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -76,5 +78,15 @@ class LoginController extends Controller
         return view('subpages.users.create');
     }
 
+    public function authenticated(Request $request, $user)
+    {
+        // Controlla il valore booleano e reindirizza
+        if ($user->boolean_field == 1) {
+            return redirect()->away('http://localhost:5174/user');
+        }
+
+        // Reindirizza alla dashboard o altra pagina se il booleano è diverso
+        return redirect()->intended('/dashboard');
+    }
 }
 

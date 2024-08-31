@@ -90,6 +90,7 @@
 
         <div class="container-fluid">
             <div class="row">
+                @auth
                 <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
                     <div class="position-sticky">
                         <ul class="nav flex-column">
@@ -102,13 +103,13 @@
                             <li class="nav-item">
                                 <a class="nav-link nav-sidebar" href="/logins">
                                     <i class="fas fa-user"></i>
-                                    Tabella Utente
+                                    Tabella Utenti
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link nav-sidebar" href="/opzioni_ricarica">
                                     <i class="fas fa-battery-full"></i>
-                                    Tabella Ricarica
+                                    Tabella Ricariche
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -126,6 +127,7 @@
                         </ul>
                     </div>
                 </nav>
+                @endauth
 
                 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                     @yield('content')

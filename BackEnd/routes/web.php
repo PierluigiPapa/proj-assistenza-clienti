@@ -55,4 +55,7 @@ Route::resource('tipi_intervento', TipiInterventoController::class);
 // Rotte per la tabella della lista dei tipi di interventi
 Route::resource('dettagli_conto', DettagliContoController::class);
 
+Route::get('/vue-app', function () {
+    return view('http://localhost:5174/user');
+});
 require __DIR__.'/auth.php';
