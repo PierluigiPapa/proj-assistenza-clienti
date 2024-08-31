@@ -88,5 +88,10 @@ class LoginController extends Controller
         // Reindirizza alla dashboard o altra pagina se il booleano è diverso
         return redirect()->intended('/dashboard');
     }
+
+    public function getUserDetails($id) {
+        $login = Login::findOrFail($id);
+        return response()->json($login);
+    }
 }
 

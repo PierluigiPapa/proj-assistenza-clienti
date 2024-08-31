@@ -11,69 +11,80 @@ export default {
       selectedOption: null,
       selectedHours: null,
       movimentoId: 1,
+      user: null, // Aggiungi una proprietà per memorizzare le informazioni dell'utente
     };
   },
   mounted() {
-  initializeDropin('#dropin-container', 'sandbox_jy6vfhf7_6xqmd4knh2cjrrz9')
-    .then(instance => {
-      this.dropinInstance = instance;
-    })
-    .catch(err => {
-      console.error('Errore nell\'inizializzazione di Drop-in:', err);
-    });
+    this.fetchUserDetails(); // Chiama il metodo per recuperare i dettagli dell'utente
+
+    initializeDropin('#dropin-container', 'sandbox_jy6vfhf7_6xqmd4knh2cjrrz9')
+      .then(instance => {
+        this.dropinInstance = instance;
+      })
+      .catch(err => {
+        console.error('Errore nell\'inizializzazione di Drop-in:', err);
+      });
   },
   methods: {
+    fetchUserDetails() {
+      axios.get(`${store.apiUrlBackEnd}/api/user-details/1`) // Usa l'ID corretto
+      .then(response => {
+        this.user = response.data;
+      })
+      .catch(error => {
+        console.error('Errore nel recupero dei dettagli dell\'utente:', error);
+      });
+    },
     handlePayment() {
-  if (!this.selectedOption || !this.selectedHours) {
-    console.error('Opzione e ore non selezionate.');
-    return;
-  }
-
-  if (!this.dropinInstance) {
-    console.error('Drop-in non inizializzato.');
-    return;
-  }
-
-  requestPaymentMethod(this.dropinInstance).then(nonce => {
-    console.log('Nonce generato:', nonce);
-    console.log('Dati inviati:', {
-      paymentMethodNonce: nonce,
-      IDLogin: 1,
-      IDOpzioneRicarica: this.selectedOption,
-      ore: this.selectedHours,
-    });
-
-    axios.post(`${store.apiUrlBackEnd}/api/process-payment`, {
-      paymentMethodNonce: nonce,
-      IDLogin: 1,
-      IDOpzioneRicarica: this.selectedOption,
-      ore: this.selectedHours,
-    })
-    .then(response => {
-      console.log('Risposta dal server:', response.data);
-    })
-    .catch(error => {
-      if (error.response) {
-        console.error('Errore nella richiesta POST:', error.response.data);
-      } else {
-        console.error('Errore nella richiesta POST:', error.message);
+      if (!this.selectedOption || !this.selectedHours) {
+        console.error('Opzione e ore non selezionate.');
+        return;
       }
-    });
-  })
-  .catch(err => {
-    console.error('Errore nella generazione del nonce:', err);
-  });
-},
 
-  handleOptionChange(event) {
-    const selectedOption = event.target.value;
-    const selectedHours = event.target.options[event.target.selectedIndex].getAttribute('ore');
-    this.selectedOption = selectedOption;
-    this.selectedHours = selectedHours;
-    console.log('Opzione selezionata:', selectedOption);
-    console.log('Ore selezionate:', selectedHours);
+      if (!this.dropinInstance) {
+        console.error('Drop-in non inizializzato.');
+        return;
+      }
+
+      requestPaymentMethod(this.dropinInstance).then(nonce => {
+        console.log('Nonce generato:', nonce);
+        console.log('Dati inviati:', {
+          paymentMethodNonce: nonce,
+          IDLogin: 1,
+          IDOpzioneRicarica: this.selectedOption,
+          ore: this.selectedHours,
+        });
+
+        axios.post(`${store.apiUrlBackEnd}/api/process-payment`, {
+          paymentMethodNonce: nonce,
+          IDLogin: 1,
+          IDOpzioneRicarica: this.selectedOption,
+          ore: this.selectedHours,
+        })
+        .then(response => {
+          console.log('Risposta dal server:', response.data);
+        })
+        .catch(error => {
+          if (error.response) {
+            console.error('Errore nella richiesta POST:', error.response.data);
+          } else {
+            console.error('Errore nella richiesta POST:', error.message);
+          }
+        });
+      })
+      .catch(err => {
+        console.error('Errore nella generazione del nonce:', err);
+      });
+    },
+    handleOptionChange(event) {
+      const selectedOption = event.target.value;
+      const selectedHours = event.target.options[event.target.selectedIndex].getAttribute('ore');
+      this.selectedOption = selectedOption;
+      this.selectedHours = selectedHours;
+      console.log('Opzione selezionata:', selectedOption);
+      console.log('Ore selezionate:', selectedHours);
+    }
   }
-}
 }
 </script>
 
@@ -89,10 +100,10 @@ export default {
                 <div class="col-12">
                   <h1 class="card-title text-center">Dettagli utente</h1>
                   <h3 class="card-subtitle mb-2 text-center mt-3"></h3>
-                  <p class="card-text">Nome:</p>
-                  <p class="card-text">Cognome:</p>
-                  <p class="card-text">Creato il:</p>
-                  <p class="card-text">Aggiornato il:</p>
+                  <p class="card-text">Nome: {{ user ? user.nome : 'Caricamento...' }}</p>
+                  <p class="card-text">Cognome: {{ user ? user.cognome : 'Caricamento...' }}</p>
+                  <p class="card-text">Creato il: {{ user ? new Date(user.created_at).toLocaleDateString() : 'Caricamento...' }}</p>
+                  <p class="card-text">Aggiornato il: {{ user ? new Date(user.updated_at).toLocaleDateString() : 'Caricamento...' }}</p>
                 </div>
               </div>
               

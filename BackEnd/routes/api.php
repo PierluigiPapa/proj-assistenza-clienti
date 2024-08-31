@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\NewPaymentController;
+use App\Http\Controllers\LoginController;
 
 
 /*
@@ -20,6 +21,13 @@ use App\Http\Controllers\NewPaymentController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::middleware('auth:sanctum')->get('/user-details', function (Request $request) {
+    return $request->user();
+});
+
+Route::get('/user-details/{id}', [LoginController::class, 'getUserDetails']);
+
 
 // Cambia la route di post per utilizzare il nuovo controller
 Route::post('/process-payment', [NewPaymentController::class, 'handlePayment']);
