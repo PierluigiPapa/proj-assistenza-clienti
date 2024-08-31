@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('username', 50)->unique();
             $table->string('password', 100);
             $table->tinyInteger('admin')->default(0);
+            $table->rememberToken();
             $table->timestamps();
         });
     }

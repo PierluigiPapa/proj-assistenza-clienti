@@ -6,10 +6,11 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens;
 
 class Login extends Model implements AuthenticatableContract
 {
-    use HasFactory, Authenticatable;
+    use HasFactory, HasApiTokens, Authenticatable;
 
     protected $table = 'login';
 
