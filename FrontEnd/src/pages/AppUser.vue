@@ -42,7 +42,7 @@ export default {
       });
     },
     getUserSpecificDetails() {
-      axios.get(`${store.apiUrlBackEnd}/api/user-specific-details/${this.movimentoId}`, {
+      axios.get(`${store.apiUrlBackEnd}/api/user-details/${this.movimentoId}`, {
         withCredentials: true
       })
       .then(response => {
