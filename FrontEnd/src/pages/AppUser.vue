@@ -10,15 +10,12 @@ export default {
       dropinInstance: null,
       selectedOption: null,
       selectedHours: null,
-      movimentoId: null, // Dinamico in base all'utente autenticato
-      user: null, // Proprietà per memorizzare le informazioni dell'utente
+      movimentoId: null,
+      user: null,
     };
   },
   mounted() {
-    // Assicurati di inviare i cookie con le richieste
     axios.defaults.withCredentials = true;
-
-    this.getUserDetails(); // Chiama il metodo per recuperare i dettagli dell'utente
 
     initializeDropin('#dropin-container', 'sandbox_jy6vfhf7_6xqmd4knh2cjrrz9')
       .then(instance => {
@@ -27,19 +24,18 @@ export default {
       .catch(err => {
         console.error('Errore nell\'inizializzazione di Drop-in:', err);
       });
+
+    this.getUserDetails();
   },
   methods: {
     getUserDetails() {
-      axios.get(`${store.apiUrlBackEnd}/authenticated-user`, {
-        headers: {
-          'Authorization': `Bearer ${store.token}`, // Assicurati di avere il token nel tuo store
-        },
+      axios.get(`${store.apiUrlBackEnd}/api/authenticated-user`, {
         withCredentials: true
       })
       .then(response => {
         this.user = response.data;
-        this.movimentoId = this.user.id; // Aggiorna l'ID dell'utente
-        this.getUserSpecificDetails(); // Recupera dettagli specifici dell'utente
+        this.movimentoId = this.user.id;
+        this.getUserSpecificDetails();
       })
       .catch(error => {
         console.error('Errore nel recupero dei dettagli dell\'utente:', error);
@@ -47,9 +43,6 @@ export default {
     },
     getUserSpecificDetails() {
       axios.get(`${store.apiUrlBackEnd}/api/user-specific-details/${this.movimentoId}`, {
-        headers: {
-          'Authorization': `Bearer ${store.token}`, // Aggiungi il token se necessario
-        },
         withCredentials: true
       })
       .then(response => {
@@ -74,20 +67,17 @@ export default {
         console.log('Nonce generato:', nonce);
         console.log('Dati inviati:', {
           paymentMethodNonce: nonce,
-          IDLogin: this.movimentoId, // Usa l'ID dell'utente autenticato
+          IDLogin: this.movimentoId,
           IDOpzioneRicarica: this.selectedOption,
           ore: this.selectedHours,
         });
 
         axios.post(`${store.apiUrlBackEnd}/api/process-payment`, {
           paymentMethodNonce: nonce,
-          IDLogin: this.movimentoId, // Usa l'ID dell'utente autenticato
+          IDLogin: this.movimentoId,
           IDOpzioneRicarica: this.selectedOption,
           ore: this.selectedHours,
         }, {
-          headers: {
-            'Authorization': `Bearer ${store.token}`, // Aggiungi il token se necessario
-          },
           withCredentials: true
         })
         .then(response => {
@@ -130,8 +120,8 @@ export default {
                   <h3 class="card-subtitle mb-2 text-center mt-3"></h3>
                   <p class="card-text">Nome: {{ user ? user.nome : 'Caricamento...' }}</p>
                   <p class="card-text">Cognome: {{ user ? user.cognome : 'Caricamento...' }}</p>
-                  <p class="card-text">Creato il: {{ user ? new Date(user.created_at).toLocaleDateString() : 'Caricamento...' }}</p>
-                  <p class="card-text">Aggiornato il: {{ user ? new Date(user.updated_at).toLocaleDateString() : 'Caricamento...' }}</p>
+                  <p class="card-text">Creato il: {{ user ? user.created_at : 'Caricamento...' }}</p>
+                  <p class="card-text">Aggiornato il: {{ user ? user.updated_at : 'Caricamento...' }}</p>
                 </div>
               </div>
               
