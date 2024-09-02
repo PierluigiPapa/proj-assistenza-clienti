@@ -31,3 +31,6 @@ Route::get('/user-details/{id}', [LoginController::class, 'getUserDetails']);
 
 // Cambia la route di post per utilizzare il nuovo controller
 Route::post('/process-payment', [NewPaymentController::class, 'handlePayment']);
+
+Route::get('/authenticated-user', [LoginController::class, 'getAuthenticatedUser']);
+

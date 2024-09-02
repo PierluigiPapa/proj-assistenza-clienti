@@ -18,7 +18,7 @@ export default {
     // Assicurati di inviare i cookie con le richieste
     axios.defaults.withCredentials = true;
 
-    this.fetchUserDetails(); // Chiama il metodo per recuperare i dettagli dell'utente
+    this.getUserDetails(); // Chiama il metodo per recuperare i dettagli dell'utente
 
     initializeDropin('#dropin-container', 'sandbox_jy6vfhf7_6xqmd4knh2cjrrz9')
       .then(instance => {
@@ -29,8 +29,8 @@ export default {
       });
   },
   methods: {
-    fetchUserDetails() {
-      axios.get(`${store.apiUrlBackEnd}/api/authenticated-user`, {
+    getUserDetails() {
+      axios.get(`${store.apiUrlBackEnd}/authenticated-user`, {
         headers: {
           'Authorization': `Bearer ${store.token}`, // Assicurati di avere il token nel tuo store
         },
@@ -39,14 +39,13 @@ export default {
       .then(response => {
         this.user = response.data;
         this.movimentoId = this.user.id; // Aggiorna l'ID dell'utente
-        this.fetchUserSpecificDetails(); // Recupera dettagli specifici dell'utente
+        this.getUserSpecificDetails(); // Recupera dettagli specifici dell'utente
       })
       .catch(error => {
         console.error('Errore nel recupero dei dettagli dell\'utente:', error);
       });
     },
-    fetchUserSpecificDetails() {
-      // Assicurati di avere l'URL corretto per questa richiesta
+    getUserSpecificDetails() {
       axios.get(`${store.apiUrlBackEnd}/api/user-specific-details/${this.movimentoId}`, {
         headers: {
           'Authorization': `Bearer ${store.token}`, // Aggiungi il token se necessario
