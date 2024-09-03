@@ -17,6 +17,10 @@ export default {
   mounted() {
     axios.defaults.withCredentials = true;
 
+    // Recupera il token CSRF
+    this.getCsrfToken();
+
+    // Inizializza Drop-in
     initializeDropin('#dropin-container', 'sandbox_jy6vfhf7_6xqmd4knh2cjrrz9')
       .then(instance => {
         this.dropinInstance = instance;
@@ -25,32 +29,41 @@ export default {
         console.error('Errore nell\'inizializzazione di Drop-in:', err);
       });
 
+    // Recupera i dettagli dell'utente autenticato
     this.getUserDetails();
   },
   methods: {
+    getCsrfToken() {
+      axios.get(`${store.apiUrlBackEnd}/sanctum/csrf-cookie`)
+        .then(response => {
+          console.log('Token CSRF recuperato con successo.');
+          console.log('Cookies attuali:', document.cookie); // Controlla i cookies
+        })
+        .catch(error => {
+          console.error('Errore nel recupero del token CSRF:', error);
+        });
+    },
     getUserDetails() {
-      axios.get(`${store.apiUrlBackEnd}/api/authenticated-user`, {
-        withCredentials: true
-      })
-      .then(response => {
-        this.user = response.data;
-        this.movimentoId = this.user.id;
-        this.getUserSpecificDetails();
-      })
-      .catch(error => {
-        console.error('Errore nel recupero dei dettagli dell\'utente:', error);
-      });
+      axios.get(`${store.apiUrlBackEnd}/api/authenticated-user`)
+        .then(response => {
+          console.log('Dettagli dell\'utente recuperati:', response.data);
+          this.user = response.data;
+          this.movimentoId = this.user.id;
+          console.log('ID utente autenticato:', this.movimentoId); // Controllo dell'ID utente
+          this.getUserSpecificDetails();
+        })
+        .catch(error => {
+          console.error('Errore nel recupero dei dettagli dell\'utente:', error);
+        });
     },
     getUserSpecificDetails() {
-      axios.get(`${store.apiUrlBackEnd}/api/user-details/${this.movimentoId}`, {
-        withCredentials: true
-      })
-      .then(response => {
-        this.user = response.data;
-      })
-      .catch(error => {
-        console.error('Errore nel recupero dei dettagli specifici dell\'utente:', error);
-      });
+      axios.get(`${store.apiUrlBackEnd}/api/user-details/1`)
+        .then(response => {
+          this.user = response.data;
+        })
+        .catch(error => {
+          console.error('Errore nel recupero dei dettagli specifici dell\'utente:', error);
+        });
     },
     handlePayment() {
       if (!this.selectedOption || !this.selectedHours) {
@@ -77,8 +90,6 @@ export default {
           IDLogin: this.movimentoId,
           IDOpzioneRicarica: this.selectedOption,
           ore: this.selectedHours,
-        }, {
-          withCredentials: true
         })
         .then(response => {
           console.log('Risposta dal server:', response.data);
