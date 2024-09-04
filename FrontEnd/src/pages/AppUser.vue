@@ -10,8 +10,7 @@ export default {
       dropinInstance: null,
       selectedOption: null,
       selectedHours: null,
-      movimentoId: null, 
-      user: null,
+      userID: 1,
     };
   },
   mounted() {
@@ -28,9 +27,6 @@ export default {
       .catch(err => {
         console.error('Errore nell\'inizializzazione di Drop-in:', err);
       });
-
-    // Test con un ID utente fisso per verifica
-    this.movimentoId = '1';
     this.getUserDetails();
   },
   methods: {
@@ -49,7 +45,7 @@ export default {
         .then(response => {
           console.log('Dettagli dell\'utente recuperati:', response.data);
           this.user = response.data;
-          this.movimentoId = this.user.id; 
+          this.movimentoId = this.userID; 
           console.log('ID utente autenticato:', this.movimentoId); 
           this.getUserSpecificDetails();
         })
@@ -58,7 +54,7 @@ export default {
         });
     },
     getUserSpecificDetails() {
-      axios.get(`${store.apiUrlBackEnd}/api/user-details/${this.movimentoId}`)
+      axios.get(`${store.apiUrlBackEnd}/api/user-details/${this.userID}`)
         .then(response => {
           this.user = response.data;
         })
