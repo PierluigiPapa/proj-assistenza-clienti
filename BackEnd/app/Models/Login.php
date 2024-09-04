@@ -29,7 +29,7 @@ class Login extends Model implements AuthenticatableContract
 
     public function isAdmin()
     {
-        return $this->admin === 1;
+        return $this->admin;
     }
 
     public function dettagliConto()

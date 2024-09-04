@@ -89,15 +89,5 @@ class LoginController extends Controller
         return redirect()->intended('/dashboard');
     }
 
-    public function getUserDetails($id) {
-        $login = Login::findOrFail($id);
-        return response()->json($login);
-    }
-
-    public function getAuthenticatedUser()
-    {
-        $user = Auth::user();
-        return response()->json($user);
-    }
 }
 
