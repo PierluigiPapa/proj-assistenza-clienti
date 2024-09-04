@@ -2,7 +2,7 @@
 
 @section('content')
 
-{{-- <main>
+ <main>
     <div class="container">
         <div class="row">
             <div class="col">
@@ -85,7 +85,7 @@ function updateOre() {
     let ore = select.options[select.selectedIndex].getAttribute('ore');
     document.getElementById('ore').value = ore ? ore : '';
 }
-</script> --}}
+</script>
 
 <style>
     .btn-login {

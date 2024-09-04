@@ -49,6 +49,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="http://localhost:5174/">{{ __('Home') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="http://localhost:5174/">{{ __('Area Utente') }}</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
