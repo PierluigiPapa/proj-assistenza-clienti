@@ -77,14 +77,14 @@ export default {
         console.log('Nonce generato:', nonce);
         console.log('Dati inviati:', {
           paymentMethodNonce: nonce,
-          IDLogin: this.movimentoId,
+          IDLogin: this.userID,
           IDOpzioneRicarica: this.selectedOption,
           ore: this.selectedHours,
         });
 
         axios.post(`${store.apiUrlBackEnd}/api/process-payment`, {
           paymentMethodNonce: nonce,
-          IDLogin: this.movimentoId,
+          IDLogin: this.userID,
           IDOpzioneRicarica: this.selectedOption,
           ore: this.selectedHours,
         })
