@@ -10,7 +10,7 @@ export default {
       dropinInstance: null,
       selectedOption: null,
       selectedHours: null,
-      movimentoId: null,
+      movimentoId: null, 
       user: null,
     };
   },
@@ -29,7 +29,8 @@ export default {
         console.error('Errore nell\'inizializzazione di Drop-in:', err);
       });
 
-    // Recupera i dettagli dell'utente autenticato
+    // Test con un ID utente fisso per verifica
+    this.movimentoId = '1';
     this.getUserDetails();
   },
   methods: {
@@ -37,7 +38,7 @@ export default {
       axios.get(`${store.apiUrlBackEnd}/sanctum/csrf-cookie`)
         .then(response => {
           console.log('Token CSRF recuperato con successo.');
-          console.log('Cookies attuali:', document.cookie); // Controlla i cookies
+          console.log('Cookies attuali:', document.cookie); 
         })
         .catch(error => {
           console.error('Errore nel recupero del token CSRF:', error);
@@ -48,8 +49,8 @@ export default {
         .then(response => {
           console.log('Dettagli dell\'utente recuperati:', response.data);
           this.user = response.data;
-          this.movimentoId = this.user.id;
-          console.log('ID utente autenticato:', this.movimentoId); // Controllo dell'ID utente
+          this.movimentoId = this.user.id; 
+          console.log('ID utente autenticato:', this.movimentoId); 
           this.getUserSpecificDetails();
         })
         .catch(error => {
@@ -57,7 +58,7 @@ export default {
         });
     },
     getUserSpecificDetails() {
-      axios.get(`${store.apiUrlBackEnd}/api/user-details/1`)
+      axios.get(`${store.apiUrlBackEnd}/api/user-details/${this.movimentoId}`)
         .then(response => {
           this.user = response.data;
         })
