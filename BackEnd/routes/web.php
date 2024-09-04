@@ -8,6 +8,8 @@ use App\Http\Controllers\OpzioniRicaricaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TipiInterventoController;
 use App\Http\Controllers\DettagliContoController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\AccountController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,7 +57,9 @@ Route::resource('tipi_intervento', TipiInterventoController::class);
 // Rotte per la tabella della lista dei tipi di interventi
 Route::resource('dettagli_conto', DettagliContoController::class);
 
-Route::get('/vue-app', function () {
-    return view('http://localhost:5174/user');
-});
+Route::post('/processPayment', [NewPaymentController::class, 'handlePayment'])->name('processPayment');
+
+Route::get('/account/{id}', [AccountController::class, 'show'])->name('account.show');
+
+
 require __DIR__.'/auth.php';
