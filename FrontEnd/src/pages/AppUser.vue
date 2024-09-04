@@ -148,7 +148,7 @@ export default {
                       <h3 class="card-title text-center">Inserisci una ricarica</h3>
 
                       <form id="ricarica-form">
-                        <input type="hidden" name="IDLogin" :value="movimentoId"> 
+                        <input type="hidden" name="IDLogin" :value="userID"> 
                         <input type="hidden" id="ore" name="ore" :value="selectedHours"> 
                         
                         <div class="form-group">
