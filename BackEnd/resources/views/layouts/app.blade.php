@@ -50,7 +50,9 @@
                             <a class="nav-link" href="http://localhost:5174/">{{ __('Home') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('account.show', ['id' => auth()->user()->id]) }}">{{ __('Area Utente') }}</a>
+                            @auth
+                            <a class="nav-link" href="{{ route('account.show') }}">{{ __('Area Utente') }}</a>
+                            @endauth
                         </li>
                     </ul>
 

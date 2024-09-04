@@ -13,9 +13,9 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show()
     {
-        $user = Login::findOrFail($id);
+        $user = auth()->user();
         return view('account.show', compact('user'));
     }
 }

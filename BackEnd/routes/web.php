@@ -57,9 +57,9 @@ Route::resource('tipi_intervento', TipiInterventoController::class);
 // Rotte per la tabella della lista dei tipi di interventi
 Route::resource('dettagli_conto', DettagliContoController::class);
 
-Route::post('/processPayment', [NewPaymentController::class, 'handlePayment'])->name('processPayment');
+Route::post('/process-payment', [PaymentController::class, 'processPayment'])->name('processPayment');
 
-Route::get('/account/{id}', [AccountController::class, 'show'])->name('account.show');
+Route::get('/account', [AccountController::class, 'show'])->name('account.show')->middleware('auth');
 
 
 require __DIR__.'/auth.php';
