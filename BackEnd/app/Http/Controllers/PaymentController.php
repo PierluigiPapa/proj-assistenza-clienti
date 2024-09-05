@@ -21,7 +21,7 @@ class PaymentController extends Controller
         Log::info('Dati ricevuti per il pagamento:', $request->all());
 
         // Validazione dei dati del modulo
-        $request->validate([
+        $validatedData = $request->validate([
             'IDOpzioneRicarica' => 'required|integer',
             'IDLogin' => 'required|integer',
             'ore' => 'required|integer',
@@ -41,8 +41,8 @@ class PaymentController extends Controller
         try {
             // Crea un nuovo record nel database
             $movimento = MovimentiRicarica::create([
-                'IDOpzioneRicarica' => $request->IDOpzioneRicarica,
-                'IDLogin' => $request->IDLogin,
+                'IDOpzioneRicarica' => $validatedData['IDOpzioneRicarica'],
+                'IDLogin' => $validatedData['IDLogin'],
                 'data' => now(),
                 'ore' => $formattedOre,
                 'paypal_orderid' => $transaction->id
@@ -54,7 +54,7 @@ class PaymentController extends Controller
             return redirect()->back()->with('success', 'Nuova ricarica registrata con successo!');
         } catch (\Exception $e) {
             // Log dell'errore
-            Log::error('Errore durante la registrazione della ricarica:', ['exception' => $e]);
+            Log::error('Errore durante la registrazione della ricarica:', ['exception' => $e->getMessage()]);
 
             return redirect()->back()->with('error', 'Si è verificato un errore durante la registrazione della ricarica.');
         }

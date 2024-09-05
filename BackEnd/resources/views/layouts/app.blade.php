@@ -185,7 +185,7 @@
                 </div>
                 <div class="modal-body">
                     <p>Per ricevere l'assistenza, chiama il numero <strong>0831 123456</strong></p>
-                    <p>Oppure invia un'email a <strong>assistenza@techguard.it</strong></p>
+                    <p>Oppure invia un'email ad <strong>assistenza@techguard.it</strong></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>

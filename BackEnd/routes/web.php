@@ -70,7 +70,8 @@ Route::get('/ricarica', function () {
     return view('ricarica_intervento.edit', compact('user'));
 })->name('editRicaricaIntervento');
 
-Route::post('/ricarica-movimento/handle-payment', [NewPaymentController::class, 'handlePayment'])->name('handlePayment');
+Route::post('/ricarica', [PaymentController::class, 'processPayment'])->name('processPayment');
+
 
 
 
