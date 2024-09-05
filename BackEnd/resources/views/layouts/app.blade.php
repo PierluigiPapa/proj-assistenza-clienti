@@ -42,13 +42,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="http://localhost:5174/">{{ __('Home') }}</a>
                         </li>
-                        <li class="nav-item">
-                            @auth
-                            @if (!Auth::user()->isAdmin())
-                            <a class="nav-link" href="/account">{{ __('Area Utente') }}</a>
-                            @endif
-                            @endauth
-                        </li>
 
                         <li class="nav-item">
                             @auth
@@ -150,27 +143,22 @@
                     <div class="position-sticky">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active nav-sidebar" aria-current="page" href="/area_utente">
+                                <a class="nav-link active nav-sidebar" aria-current="page" href="/account">
                                     <i class="fas fa-user-circle"></i>
                                     Area Utente
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link nav-sidebar" href="/profilo">
-                                    <i class="fas fa-id-badge"></i>
-                                    Il Mio Profilo
+                                <a class="nav-link nav-sidebar" href="/ricarica">
+                                    <i class="fas fa-bolt"></i>
+                                    Registra ricarica
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link nav-sidebar" href="/ordini">
-                                    <i class="fas fa-shopping-cart"></i>
-                                    I Miei Ordini
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link nav-sidebar" href="/supporto">
-                                    <i class="fas fa-headset"></i>
-                                    Supporto
+                                <!-- Modifica il link per aprire la modale -->
+                                <a class="nav-link nav-sidebar" href="#" data-bs-toggle="modal" data-bs-target="#assistanceModal">
+                                    <i class="fas fa-phone"></i>
+                                    Chiama l'assistenza
                                 </a>
                             </li>
                         </ul>
@@ -186,6 +174,25 @@
             </div>
         </div>
     </div>
+
+    <!-- Modale per l'assistenza -->
+    <div class="modal fade" id="assistanceModal" tabindex="-1" aria-labelledby="assistanceModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="assistanceModalLabel">Chiama l'assistenza</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Per ricevere l'assistenza, chiama il numero <strong>0831 123456</strong></p>
+                    <p>Oppure invia un'email a <strong>assistenza@techguard.it</strong></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 <style>
@@ -196,7 +203,6 @@
     .nav-link {
         color: black;
     }
-
 
     #sidebar {
         background-color: #091c2e;
@@ -218,5 +224,8 @@
     }
 </style>
 
+<!-- Inclusione di Bootstrap JS e Popper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </html>

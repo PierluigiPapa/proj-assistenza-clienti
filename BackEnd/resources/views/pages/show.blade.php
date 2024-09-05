@@ -32,15 +32,16 @@
                                         <div class="card-body">
                                             <h3 class="card-title text-center">Inserisci una ricarica</h3>
 
-                                            <form id="ricarica-form" method="POST" action="{{ route('processPayment') }}">
+                                            <form id="payment-form" method="POST" action="{{ route('processPayment') }}">
                                                 @csrf
                                                 <input type="hidden" name="IDLogin" value="{{$user->id}}">
                                                 <input type="hidden" id="ore" name="ore" value="">
+                                                <input type="hidden" name="payment_method_nonce">
 
+                                                <!-- Aggiungi il menu a tendina per le opzioni di ricarica -->
                                                 <div class="form-group">
                                                     <label for="IDOpzioneRicarica"></label>
-
-                                                    <select class="form-control me-2" id="IDOpzioneRicarica" name="IDOpzioneRicarica" onchange="updateOre()">
+                                                    <select class="form-control" id="IDOpzioneRicarica" name="IDOpzioneRicarica" onchange="updateOre()">
                                                         <option value="" disabled selected>Seleziona un'opzione di ricarica</option>
                                                         <option value="1" ore="6" costo="5.00">Ricarica Base - 5.00€ per 6 ore</option>
                                                         <option value="2" ore="12" costo="10.00">Ricarica Standard - 10.00€ per 12 ore</option>
@@ -50,21 +51,22 @@
                                                 </div>
 
                                                 @if (session('success'))
-
-                                                <div class="alert alert-successo mt-4">
-                                                    {{ session('success') }}
-                                                </div>
+                                                    <div class="alert alert-successo mt-4">
+                                                        {{ session('success') }}
+                                                    </div>
                                                 @endif
 
                                                 @if (session('error'))
-
-                                                <div class="alert alert-errore mt-4">
-                                                    {{ session('error') }}
-                                                </div>
+                                                    <div class="alert alert-errore mt-4">
+                                                        {{ session('error') }}
+                                                    </div>
                                                 @endif
 
-                                                <div class="d-flex justify-content-center">
-                                                    <button type="submit" class="btn btn-login mt-3">Inserisci</button>
+                                                <div id="payment-section" style="display: none;">
+                                                    <div id="bt-dropin"></div>
+                                                    <div class="d-flex justify-content-center">
+                                                        <button type="submit" class="btn btn-login mt-3">Paga</button>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>
@@ -80,12 +82,35 @@
 </main>
 
 <script>
-function updateOre() {
-    let select = document.getElementById('IDOpzioneRicarica');
-    let ore = select.options[select.selectedIndex].getAttribute('ore');
-    document.getElementById('ore').value = ore ? ore : '';
-}
-</script>
+    function updateOre() {
+        let select = document.getElementById('IDOpzioneRicarica');
+        var ore = select.options[select.selectedIndex].getAttribute('ore');
+        document.getElementById('ore').value = ore;
+
+        // Mostra il form di pagamento quando viene selezionata un'opzione
+        let paymentSection = document.getElementById('payment-section');
+        if (select.value) {
+            paymentSection.style.display = 'block';
+        } else {
+            paymentSection.style.display = 'none';
+        }
+    }
+
+    let form = document.querySelector('#payment-form');
+    braintree.dropin.create({
+        authorization: 'sandbox_v2smmr6x_6xqmd4knh2cjrrz9',
+        container: '#bt-dropin',
+        locale: 'it'
+    }, function (createErr, instance) {
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            instance.requestPaymentMethod(function (err, payload) {
+                document.querySelector('input[name="payment_method_nonce"]').value = payload.nonce;
+                form.submit();
+            });
+        });
+    });
+    </script>
 
 <style>
     .btn-login {

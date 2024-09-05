@@ -65,5 +65,13 @@ Route::get('/account', [AccountController::class, 'show'])->name('account.show')
 Route::post('/intervento/store', [InterventoController::class, 'store'])->name('intervento.store');
 Route::get('/registra-intervento', [InterventoController::class, 'create'])->name('intervento.create');
 
+Route::get('/ricarica', function () {
+    $user = auth()->user(); // Ottieni l'utente autenticato
+    return view('ricarica_intervento.edit', compact('user'));
+})->name('editRicaricaIntervento');
+
+Route::post('/ricarica-movimento/handle-payment', [NewPaymentController::class, 'handlePayment'])->name('handlePayment');
+
+
 
 require __DIR__.'/auth.php';
