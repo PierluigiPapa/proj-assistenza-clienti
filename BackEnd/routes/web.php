@@ -10,6 +10,7 @@ use App\Http\Controllers\TipiInterventoController;
 use App\Http\Controllers\DettagliContoController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\InterventoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,6 +61,9 @@ Route::resource('dettagli_conto', DettagliContoController::class);
 Route::post('/process-payment', [PaymentController::class, 'processPayment'])->name('processPayment');
 
 Route::get('/account', [AccountController::class, 'show'])->name('account.show')->middleware('auth');
+
+Route::post('/intervento/store', [InterventoController::class, 'store'])->name('intervento.store');
+Route::get('/registra-intervento', [InterventoController::class, 'create'])->name('intervento.create');
 
 
 require __DIR__.'/auth.php';

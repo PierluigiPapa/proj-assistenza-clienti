@@ -45,7 +45,7 @@
                         <li class="nav-item">
                             @auth
                             @if (!Auth::user()->isAdmin())
-                            <a class="nav-link" href="{{ route('account.show') }}">{{ __('Area Utente') }}</a>
+                            <a class="nav-link" href="/account">{{ __('Area Utente') }}</a>
                             @endif
                             @endauth
                         </li>
@@ -131,6 +131,12 @@
                                 <a class="nav-link nav-sidebar" href="/dettagli_conto">
                                     <i class="fas fa-wallet"></i>
                                     Tabella Saldo
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-sidebar" href="/registra-intervento">
+                                    <i class="fas fa-edit"></i>
+                                    Registra Intervento
                                 </a>
                             </li>
                         </ul>
