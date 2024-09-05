@@ -32,6 +32,7 @@ class Login extends Model implements AuthenticatableContract
         return $this->admin;
     }
 
+
     public function dettagliConto()
     {
         return $this->hasOne(DettagliConto::class, 'IDLogin');

@@ -44,7 +44,17 @@
                         </li>
                         <li class="nav-item">
                             @auth
+                            @if (!Auth::user()->isAdmin())
                             <a class="nav-link" href="{{ route('account.show') }}">{{ __('Area Utente') }}</a>
+                            @endif
+                            @endauth
+                        </li>
+
+                        <li class="nav-item">
+                            @auth
+                            @if (Auth::user()->isAdmin())
+                            <a class="nav-link" href="{{ route('account.show') }}">{{ __('Area Admin') }}</a>
+                            @endif
                             @endauth
                         </li>
                     </ul>
@@ -66,7 +76,6 @@
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->nome }} {{ Auth::user()->cognome }}
                             </a>
-
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ url('dashboard') }}">{{__('Dashboard')}}</a>
                                 <a class="dropdown-item" href="{{ url('profile') }}">{{__('Profilo')}}</a>
@@ -89,6 +98,7 @@
         <div class="container-fluid">
             <div class="row">
                 @auth
+                <!-- Sidebar per l'amministratore -->
                 @if (Auth::user()->isAdmin())
                 <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
                     <div class="position-sticky">
@@ -127,8 +137,43 @@
                     </div>
                 </nav>
                 @endif
+
+                <!-- Sidebar per l'utente normale -->
+                @if (!Auth::user()->isAdmin())
+                <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
+                    <div class="position-sticky">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active nav-sidebar" aria-current="page" href="/area_utente">
+                                    <i class="fas fa-user-circle"></i>
+                                    Area Utente
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-sidebar" href="/profilo">
+                                    <i class="fas fa-id-badge"></i>
+                                    Il Mio Profilo
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-sidebar" href="/ordini">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    I Miei Ordini
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-sidebar" href="/supporto">
+                                    <i class="fas fa-headset"></i>
+                                    Supporto
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                @endif
                 @endauth
 
+                <!-- Spazio per il contenuto principale -->
                 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                     @yield('content')
                 </main>
@@ -146,10 +191,12 @@
         color: black;
     }
 
+
     #sidebar {
         background-color: #091c2e;
         height: 100vh;
         position: fixed;
+        left: 0;
     }
 
     .nav-sidebar {
@@ -160,6 +207,10 @@
         color: gray;
     }
 
+    main {
+        margin-left: 220px;
+    }
 </style>
+
 
 </html>
