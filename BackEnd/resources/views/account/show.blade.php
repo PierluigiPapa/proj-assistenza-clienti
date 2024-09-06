@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col">
                 <div class="d-flex justify-content-center align-items-center mt-5">
-                    <div class="card" style="width: 60rem;">
+                    <div class="card" style="width: 50rem;">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-12">
@@ -18,103 +18,6 @@
                                     <p class="card-text">Creato il: {{$user->created_at->setTimezone('Europe/Rome')->format('d-m-Y H:i:s')}}</p>
                                     <p class="card-text">Aggiornato il: {{$user->updated_at->setTimezone('Europe/Rome')->format('d-m-Y H:i:s')}}</p>
                                     {{-- <p class="card-text">Saldo disponibile: {{$user->dettagliConto->saldo}}</p> --}}
-                                </div>
-                            </div>
-                            <div class="row mt-5">
-                                <div class="col-6">
-                                    <div class="card" style="height: 100%;">
-                                        <div class="card-body">
-                                            <h3 class="card-title text-center">Form intervento</h3>
-                                            <form action="{{ route('intervento.store') }}" method="POST">
-                                                @csrf <!-- Token di sicurezza per le richieste POST -->
-
-                                                <!-- Selezione utente -->
-                                                <div class="form-group">
-                                                    <label for="user">Seleziona utente:</label>
-                                                    <select class="form-control" id="user" name="user">
-                                                        <option value="{{ $user->id }}">{{ $user->nome }} {{ $user->cognome }}</option>
-                                                        <!-- Puoi aggiungere altri utenti qui -->
-                                                        <option value="3">Utente 3</option>
-                                                    </select>
-                                                </div>
-
-                                                <!-- Tipo di intervento -->
-                                                <div class="form-group">
-                                                    <label for="intervention-type">Tipo di intervento:</label>
-                                                    <select class="form-control" id="intervention-type" name="intervention-type">
-                                                        <option value="1">Manutenzione</option>
-                                                        <option value="2">Riparazione</option>
-                                                        <option value="3">Installazione</option>
-                                                    </select>
-                                                </div>
-
-                                                <!-- Data e ora di inizio -->
-                                                <div class="form-group">
-                                                    <label for="start-date">Data inizio:</label>
-                                                    <input type="date" class="form-control" id="start-date" name="start-date">
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="start-time">Ora inizio:</label>
-                                                    <input type="time" class="form-control" id="start-time" name="start-time">
-                                                </div>
-
-                                                <!-- Data e ora di fine -->
-                                                <div class="form-group">
-                                                    <label for="end-date">Data fine:</label>
-                                                    <input type="date" class="form-control" id="end-date" name="end-date">
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="end-time">Ora fine:</label>
-                                                    <input type="time" class="form-control" id="end-time" name="end-time">
-                                                </div>
-
-                                                <!-- Pulsante di invio -->
-                                                <button type="submit" class="btn btn-primary mt-3">Invia</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <h3 class="card-title text-center">Effettua una ricarica</h3>
-                                    <form id="payment-form" method="POST" action="{{ route('processPayment') }}">
-                                        @csrf
-                                        <input type="hidden" name="IDLogin" value="{{$user->id}}">
-                                        <input type="hidden" id="ore" name="ore" value="">
-                                        <input type="hidden" name="payment_method_nonce">
-
-                                        <!-- Aggiungi il menu a tendina per le opzioni di ricarica -->
-                                        <div class="form-group">
-                                            <label for="IDOpzioneRicarica"></label>
-                                            <select class="form-control" id="IDOpzioneRicarica" name="IDOpzioneRicarica" onchange="updateOre()">
-                                                <option value="" disabled selected>Seleziona un'opzione di ricarica</option>
-                                                <option value="1" ore="6" costo="5.00">Ricarica Base - 5.00€ per 6 ore</option>
-                                                <option value="2" ore="12" costo="10.00">Ricarica Standard - 10.00€ per 12 ore</option>
-                                                <option value="3" ore="24" costo="20.00">Ricarica Avanzata - 20.00€ per 24 ore</option>
-                                                <option value="4" ore="48" costo="50.00">Ricarica Elite - 50.00€ per 48 ore</option>
-                                            </select>
-                                        </div>
-
-                                        @if (session('success'))
-                                            <div class="alert alert-successo mt-4">
-                                                {{ session('success') }}
-                                            </div>
-                                        @endif
-
-                                        @if (session('error'))
-                                            <div class="alert alert-errore mt-4">
-                                                {{ session('error') }}
-                                            </div>
-                                        @endif
-
-                                        <div id="payment-section" style="display: none;">
-                                            <div id="bt-dropin"></div>
-                                            <div class="d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-login mt-3">Paga</button>
-                                            </div>
-                                        </div>
-                                    </form>
                                 </div>
                             </div>
                         </div>
