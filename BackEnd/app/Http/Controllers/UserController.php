@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Login;
+use App\Models\DettagliConto;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -33,8 +34,8 @@ class UserController extends Controller
         return view('pages.create');
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
+        // Validazione dei dati in ingresso
         $request->validate([
             'nome' => 'required',
             'cognome' => 'required',
@@ -43,7 +44,8 @@ class UserController extends Controller
             'admin' => 'required|boolean',
         ]);
 
-        $user = new Login([
+        // Creazione del nuovo utente
+        $user = Login::create([
             'nome' => $request->get('nome'),
             'cognome' => $request->get('cognome'),
             'username' => $request->get('username'),
@@ -51,62 +53,57 @@ class UserController extends Controller
             'admin' => $request->get('admin'),
         ]);
 
-        $user->save();
+        // Creazione del record nella tabella `dettagli_conto` per l'utente appena creato
+        DettagliConto::create([
+            'IDLogin' => $user->id,
+            'saldo' => '00:00:00', // Imposta il saldo iniziale
+            ]);
 
-        return redirect('/users')->with('success', 'User saved!');
+            // Reindirizzamento alla lista degli utenti con un messaggio di successo
+            return redirect('/users')->with('success', 'User and account created successfully!');
     }
 
+        public function show($id) {
+            $user = Login::find($id);
 
-    public function show($id) {
-        $user = Login::find($id);
+            if (!$user) {
+                return redirect('/users')->with('error', 'User not found!');
+            }
 
-        if (!$user) {
-            return redirect('/users')->with('error', 'User not found!');
+            return view('pages.show', compact('user', 'userCode'));
         }
 
-        // Genera un codice utente con uno zero davanti all'ID
-        $userCode = '0' . str_pad($id, 2, '0', STR_PAD_LEFT);
-
-        return view('pages.show', compact('user', 'userCode'));
-    }
-
-
-    public function edit($id)
-    {
-        $user = Login::findOrFail($id);
-        return view('pages.edit', compact('user'));
-    }
-
-
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'nome' => 'required',
-            'cognome' => 'required',
-            'username' => 'required|unique:login,username,'.$id,
-            'admin' => 'required|boolean',
-        ]);
-
-        $user = Login::findOrFail($id);
-        $user->nome = $request->get('nome');
-        $user->cognome = $request->get('cognome');
-        $user->username = $request->get('username');
-        if ($request->get('password')) {
-            $user->password = bcrypt($request->get('password'));
+        public function edit($id) {
+            $user = Login::findOrFail($id);
+            return view('pages.edit', compact('user'));
         }
-        $user->admin = $request->get('admin');
-        $user->save();
 
-        return redirect('/users')->with('success', 'User updated!');
-    }
+        public function update(Request $request, $id) {
+            $request->validate([
+                'nome' => 'required',
+                'cognome' => 'required',
+                'username' => 'required|unique:login,username,'.$id,
+                'admin' => 'required|boolean',
+            ]);
 
-    public function destroy($id)
-    {
-        $user = Login::findOrFail($id);
-        $user->delete();
+            $user = Login::findOrFail($id);
+            $user->nome = $request->get('nome');
+            $user->cognome = $request->get('cognome');
+            $user->username = $request->get('username');
+            if ($request->get('password')) {
+                $user->password = bcrypt($request->get('password'));
+            }
 
-        return redirect('/users')->with('success', 'User deleted!');
-    }
+            $user->admin = $request->get('admin');
+            $user->save();
 
+            return redirect('/users')->with('success', 'User updated!');
+        }
 
+        public function destroy($id) {
+            $user = Login::findOrFail($id);
+            $user->delete();
+
+            return redirect('/users')->with('success', 'User deleted!');
+        }
 }
