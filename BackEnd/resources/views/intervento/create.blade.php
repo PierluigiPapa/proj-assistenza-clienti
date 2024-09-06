@@ -56,7 +56,7 @@
                         </div>
 
                         <div class="d-flex justify-content-center">
-                            <button type="submit" class="btn btn-login mt-3">Aggiorna</button>
+                            <button type="submit" class="btn btn-login mt-3">Registra</button>
                         </div>
                     </form>
                 </div>

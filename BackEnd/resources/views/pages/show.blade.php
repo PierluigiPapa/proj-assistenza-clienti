@@ -20,26 +20,19 @@
                                     <p class="card-text">Saldo disponibile: {{$user->dettagliConto->saldo}}</p>
                                 </div>
                             </div>
-                            <div class="row mt-5">
-                                <div class="col-6">
-                                    <div class="card" style="height: 100%;">
-                                        <div class="card-body">
-                                            <h3 class="card-title text-center">Form intervento</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="card" style="height: 100%;">
-                                        <div class="card-body">
-                                            <h3 class="card-title text-center">Inserisci una ricarica</h3>
+                            <div class="col-12 d-flex justify-content-center align-items-center mt-5">
+                                <div class="card" style="width: 50%">
+                                    <div class="card-body">
+                                        <h3 class="card-title text-center">Inserisci una ricarica</h3>
 
-                                            <form id="payment-form" method="POST" action="{{ route('processPayment') }}">
-                                                @csrf
-                                                <input type="hidden" name="IDLogin" value="{{$user->id}}">
-                                                <input type="hidden" id="ore" name="ore" value="">
-                                                <input type="hidden" name="payment_method_nonce">
+                                        <form id="payment-form" method="POST" action="{{ route('processPayment') }}">
+                                            @csrf
 
-                                                <!-- Aggiungi il menu a tendina per le opzioni di ricarica -->
+                                            <input type="hidden" name="IDLogin" value="{{$user->id}}">
+                                            <input type="hidden" id="ore" name="ore" value="">
+                                            <input type="hidden" name="payment_method_nonce">
+
+                                            <!-- Menu a tendina per le opzioni di ricarica -->
                                                 <div class="form-group">
                                                     <label for="IDOpzioneRicarica"></label>
                                                     <select class="form-control" id="IDOpzioneRicarica" name="IDOpzioneRicarica" onchange="updateOre()">

@@ -44,12 +44,13 @@
                         </li>
 
                         <li class="nav-item">
-                            @auth
-                            @if (Auth::user()->isAdmin())
-                            <a class="nav-link" href="{{ route('account.show') }}">{{ __('Area Admin') }}</a>
-                            @endif
-                            @endauth
+                            <a class="nav-link" href="http://localhost:5174/">{{ __('Chi siamo') }}</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="http://localhost:5174/">{{ __('I nostri servizi') }}</a>
+                        </li>
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -98,8 +99,8 @@
                         <ul class="nav flex-column">
                             <li class="nav-item">
                                 <a class="nav-link active nav-sidebar" aria-current="page" href="/index">
-                                    <i class="fas fa-home"></i>
-                                    Indice
+                                    <i class="fas fa-shield-alt"></i>
+                                    Area amministratore
                                 </a>
                             </li>
                             <li class="nav-item">

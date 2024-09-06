@@ -24,7 +24,7 @@
             <table class="table mt-3">
                 <thead>
                     <tr class="text-center fs-5">
-                        <th scope="col">ID</th>
+                        <th scope="col">Codice</th>
                         <th scope="col">Nome</th>
                         <th scope="col">Cognome</th>
                         <th scope="col">Username</th>
