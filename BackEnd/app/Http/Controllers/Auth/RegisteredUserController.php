@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Login;
+use App\Models\DettagliConto; // Assicurati di importare il modello DettagliConto
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -45,6 +46,12 @@ class RegisteredUserController extends Controller
             'username' => $request->username,
             'password' => Hash::make($request->password),
             'admin' => $request->has('is_admin') ? 1 : 0, // Imposta il valore di admin
+        ]);
+
+        // Creazione del record nella tabella `dettagli_conto`
+        DettagliConto::create([
+            'IDLogin' => $user->id,
+            'saldo' => '00:00:00', // Imposta il saldo iniziale
         ]);
 
         // Evento di registrazione
