@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Login;
+use App\Models\OpzioniRicarica;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -51,14 +52,17 @@ class UserController extends Controller
         if (!$user) {
             return redirect('/users')->with('error', 'User not found!');
         }
-        return view('pages.show', compact('user'));
+
+        $opzioni = OpzioniRicarica::all();
+        return view('pages.show', compact('user', 'opzioni'));
     }
 
 
     public function edit($id)
     {
         $user = Login::findOrFail($id);
-        return view('pages.edit', compact('user'));
+        $opzioni = OpzioniRicarica::all();
+        return view('pages.edit', compact('user', 'opzioni'));
     }
 
 
