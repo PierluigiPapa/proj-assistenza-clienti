@@ -73,8 +73,8 @@
                                     <option value="" disabled selected>Seleziona un'opzione di ricarica</option>
                                     <option value="1" ore="6" costo="5.00">Ricarica Base - 5.00€ per 6 ore</option>
                                     <option value="2" ore="12" costo="10.00">Ricarica Standard - 10.00€ per 12 ore</option>
-                                    <option value="3" ore="18" costo="20.00">Ricarica Avanzata - 20.00€ per 24 ore</option>
-                                    <option value="4" ore="24" costo="50.00">Ricarica Elite - 50.00€ per 48 ore</option>
+                                    <option value="3" ore="24" costo="20.00">Ricarica Avanzata - 20.00€ per 24 ore</option>
+                                    <option value="4" ore="48" costo="50.00">Ricarica Elite - 50.00€ per 48 ore</option>
                                 </select>
                             </div>
 
@@ -135,7 +135,7 @@
 <script>
 function aggiornaOre() {
     let select = document.getElementById('IDOpzioneRicarica');
-    let ore = select.options[select.selectedIndex].getAttribute('ore');
+    var ore = select.options[select.selectedIndex].getAttribute('ore');
     document.getElementById('ore').value = ore;
 
     // Mostra il form di pagamento quando viene selezionata un'opzione
