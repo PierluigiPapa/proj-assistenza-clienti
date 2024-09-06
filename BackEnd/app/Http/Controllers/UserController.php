@@ -70,7 +70,7 @@ class UserController extends Controller
                 return redirect('/users')->with('error', 'User not found!');
             }
 
-            return view('pages.show', compact('user', 'userCode'));
+            return view('pages.show', compact('user'));
         }
 
         public function edit($id) {
