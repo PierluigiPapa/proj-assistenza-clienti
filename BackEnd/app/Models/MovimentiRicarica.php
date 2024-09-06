@@ -27,16 +27,4 @@ class MovimentiRicarica extends Model
         return $this->belongsTo(OpzioniRicarica::class, 'IDOpzioneRicarica');
     }
 
-    public function getOpzioneRicaricaLabelAttribute()
-    {
-        $opzioni = [
-        1 => 'Ricarica Base',
-        2 => 'Ricarica Standard',
-        3 => 'Ricarica Premium',
-        4 => 'Ricarica Elite',
-    ];
-
-    return $opzioni[$this->IDOpzioneRicarica] ?? 'Opzione sconosciuta';
-}
-
 }
