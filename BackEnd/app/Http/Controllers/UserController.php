@@ -9,12 +9,24 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-    public function index()
-    {
-        $users = Login::with('movimentiRicarica', 'dettagliConto')->get();
+    public function index(Request $request) {
+        // Ottieni il valore del parametro di ricerca
+        $search = $request->input('search');
+
+        // Filtra gli utenti in base al parametro di ricerca, se presente
+        if ($search) {
+            $users = Login::where('id', $search)->with('movimentiRicarica', 'dettagliConto')->get();
+        } else {
+            $users = Login::with('movimentiRicarica', 'dettagliConto')->get();
+        }
+
+        // Conta il numero totale di utenti
         $totalUsers = $users->count();
+
+        // Passa i dati alla vista
         return view('pages.index', compact('users', 'totalUsers'));
     }
+
 
     public function create()
     {
@@ -45,13 +57,17 @@ class UserController extends Controller
     }
 
 
-    public function show($id)
-    {
+    public function show($id) {
         $user = Login::find($id);
+
         if (!$user) {
             return redirect('/users')->with('error', 'User not found!');
         }
-        return view('pages.show', compact('user'));
+
+        // Genera un codice utente con uno zero davanti all'ID
+        $userCode = '0' . str_pad($id, 2, '0', STR_PAD_LEFT);
+
+        return view('pages.show', compact('user', 'userCode'));
     }
 
 

@@ -8,6 +8,13 @@
             <h3 class="text-light">Lista utenti: {{$totalUsers}}</h3>
         </div>
 
+        <!-- Barra di ricerca per ID utente -->
+        <div class="d-flex justify-content-center align-items-center mt-3">
+            <form action="{{ route('users.index') }}" method="GET" class="d-flex">
+                <input type="text" name="search" placeholder="Cerca per ID" class="form-control me-2" value="{{ request()->query('search') }}">
+                <button type="submit" class="btn btn-login">Cerca</button>
+            </form>
+        </div>
 
         <div class="d-flex justify-content-center align-items-center mt-3">
             <a href="{{ route('users.create') }}" class="btn btn-login">Crea</a>
