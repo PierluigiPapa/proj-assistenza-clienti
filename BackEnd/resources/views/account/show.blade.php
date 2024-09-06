@@ -28,37 +28,6 @@
     </div>
 </main>
 
-<script>
-function updateOre() {
-    let select = document.getElementById('IDOpzioneRicarica');
-    var ore = select.options[select.selectedIndex].getAttribute('ore');
-    document.getElementById('ore').value = ore;
-
-    // Mostra il form di pagamento quando viene selezionata un'opzione
-    let paymentSection = document.getElementById('payment-section');
-    if (select.value) {
-        paymentSection.style.display = 'block';
-    } else {
-        paymentSection.style.display = 'none';
-    }
-}
-
-let form = document.querySelector('#payment-form');
-braintree.dropin.create({
-    authorization: 'sandbox_v2smmr6x_6xqmd4knh2cjrrz9',
-    container: '#bt-dropin',
-    locale: 'it'
-}, function (createErr, instance) {
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
-        instance.requestPaymentMethod(function (err, payload) {
-            document.querySelector('input[name="payment_method_nonce"]').value = payload.nonce;
-            form.submit();
-        });
-    });
-});
-</script>
-
 <style>
     .btn-login {
         background-color: #3498DB;
