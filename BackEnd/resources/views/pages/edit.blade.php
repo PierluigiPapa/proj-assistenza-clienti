@@ -5,88 +5,48 @@
 <main>
     <div class="container mt-5 mb-5">
         <div class="row d-flex justify-content-center align-items-center">
-            <!-- Card con il form di registrazione e ricarica -->
-            <div class="col">
-                <div class="card" style="width: 70%">
-                    <div class="card-body">
-                        <h3 class="card-title text-center">Modifica l'utente</h3>
+            <!-- Card con il form di modifica utente-->
+            <div class="card" style="width: 50%">
+                <div class="card-body">
+                    <h3 class="card-title text-center">Modifica l'utente</h3>
 
-                        <!-- Form di modifica utente -->
-                        <form action="{{ route('users.update', $user->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <div class="mb-3">
-                                <label for="nome" class="form-label">Nome</label>
-                                <input type="text" class="form-control" id="nome" name="nome" value="{{ $user->nome }}" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="cognome" class="form-label">Cognome</label>
-                                <input type="text" class="form-control" id="cognome" name="cognome" value="{{ $user->cognome }}" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" name="username" value="{{ $user->username }}" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="admin" class="form-label">Admin</label>
-                                <select class="form-control" id="admin" name="admin" required>
-                                    <option value="1" {{ $user->admin == 1 ? 'selected' : '' }}>Sì</option>
-                                    <option value="0" {{ $user->admin == 0 ? 'selected' : '' }}>No</option>
-                                </select>
-                            </div>
-                            <div class="d-flex justify-content-center mb-3">
-                                <button type="submit" class="btn btn-login">Modifica</button>
-                            </div>
-                        </form>
+                    <!-- Form di modifica utente -->
+                    <form action="{{ route('users.update', $user->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
 
-
-                        <!-- Form di ricarica -->
-                        <div class="card mt-5 mx-auto d-flex justify-content-center align-items-center" style="width: 50%">
-                            <h3 class="text-center text-dark mt-5">Modifica la ricarica</h3>
-                            <div class="card-body">
-                                <form id="payment-form" method="POST" action="{{ route('handlePayment') }}">
-                                    @csrf
-                                    <input type="hidden" name="IDLogin" value="{{ $user->id }}">
-                                    <input type="hidden" id="ore" name="ore" value="">
-                                    <input type="hidden" name="payment_method_nonce">
-
-                                    <div class="form-group mb-3">
-                                        <label for="IDOpzioneRicarica"></label>
-                                        <select class="form-control" id="IDOpzioneRicarica" name="IDOpzioneRicarica" onchange="aggiornaOre()">
-                                            <option value="" disabled selected>Seleziona un'opzione</option>
-                                            <option value="1" ore="6" costo="5.00">Ricarica Base - 5.00€ per 6 ore</option>
-                                            <option value="2" ore="12" costo="10.00">Ricarica Standard - 10.00€ per 12 ore</option>
-                                            <option value="3" ore="24" costo="20.00">Ricarica Avanzata - 20.00€ per 24 ore</option>
-                                            <option value="4" ore="48" costo="50.00€">Ricarica Elite - 50.00€ per 48 ore</option>
-                                        </select>
-                                    </div>
-
-                                    @if (session('success'))
-                                    <div class="alert alert-successo mt-4">
-                                        {{ session('success') }}
-                                    </div>
-                                    @endif
-
-                                    @if (session('error'))
-                                    <div class="alert alert-errore mt-4">
-                                        {{ session('error') }}
-                                    </div>
-                                    @endif
-
-                                    <div id="payment-section" style="display: none;">
-                                        <div id="bt-dropin"></div>
-                                        <div class="d-flex justify-content-center">
-                                            <button type="submit" class="btn btn-login mt-3">Paga</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="nome" name="nome" value="{{ $user->nome }}" required>
                         </div>
-                    </div>
+
+                        <div class="mb-3">
+                            <label for="cognome" class="form-label">Cognome</label>
+                            <input type="text" class="form-control" id="cognome" name="cognome" value="{{ $user->cognome }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" value="{{ $user->username }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="admin" class="form-label">Admin</label>
+                            <select class="form-control" id="admin" name="admin" required>
+                                <option value="1" {{ $user->admin == 1 ? 'selected' : '' }}>Sì</option>
+                                <option value="0" {{ $user->admin == 0 ? 'selected' : '' }}>No</option>
+                            </select>
+                        </div>
+
+                        <div class="d-flex justify-content-center mb-3">
+                            <button type="submit" class="btn btn-login">Modifica</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -122,36 +82,6 @@
 
 </main>
 
-<script>
-function aggiornaOre() {
-    let select = document.getElementById('IDOpzioneRicarica');
-    var ore = select.options[select.selectedIndex].getAttribute('ore');
-    document.getElementById('ore').value = ore;
-
-    let paymentSection = document.getElementById('payment-section');
-    paymentSection.style.display = 'block';
-}
-
-function confermaModifiche() {
-    $('#modificaModal').modal('hide');
-    document.getElementById('payment-section').style.display = 'block';
-}
-
-let form = document.querySelector('#payment-form');
-braintree.dropin.create({
-    authorization: 'sandbox_v2smmr6x_6xqmd4knh2cjrrz9',
-    container: '#bt-dropin',
-    locale: 'it'
-}, function (createErr, instance) {
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
-        instance.requestPaymentMethod(function (err, payload) {
-            document.querySelector('input[name="payment_method_nonce"]').value = payload.nonce;
-            form.submit();
-        });
-    });
-});
-</script>
 
 <style>
     .btn-login {

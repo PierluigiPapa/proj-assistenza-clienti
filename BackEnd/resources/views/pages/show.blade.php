@@ -6,10 +6,10 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <div class="d-flex justify-content-center align-items-center mt-5">
+                <div class="d-flex justify-content-center align-items-center mt-5 mb-5">
                     <div class="card" style="width: 60rem;">
                         <div class="card-body">
-                            <div class="row">
+                            <div class="r">
                                 <div class="col-12">
                                     <h1 class="card-title text-center">Dettagli utente</h1>
                                     <h3 class="card-subtitle mb-2 text-center mt-3">{{$user->username}}</h3>
