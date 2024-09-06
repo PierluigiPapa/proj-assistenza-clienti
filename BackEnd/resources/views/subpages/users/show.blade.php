@@ -21,6 +21,7 @@
                                     <p class="card-text">Data aggiornamento dell'utente: {{ ucfirst($logins->created_at->setTimezone('Europe/Rome')->locale('it')->isoFormat('dddd DD-MM-YYYY')) }}
                                         ore {{ $logins->created_at->setTimezone('Europe/Rome')->format('H:i:s') }}
                                     </p>
+                                    <p class="card-text">Saldo disponibile: {{$user->dettagliConto->saldo}}</p>
                                 </div>
                             </div>
                         </div>

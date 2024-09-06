@@ -17,7 +17,7 @@
                                     <p class="card-text">Cognome: {{$user->cognome}}</p>
                                     <p class="card-text">Creato il: {{$user->created_at->setTimezone('Europe/Rome')->format('d-m-Y H:i:s')}}</p>
                                     <p class="card-text">Aggiornato il: {{$user->updated_at->setTimezone('Europe/Rome')->format('d-m-Y H:i:s')}}</p>
-                                    {{-- <p class="card-text">Saldo disponibile: {{$user->dettagliConto->saldo}}</p> --}}
+                                    <p class="card-text">Saldo disponibile: {{$user->dettagliConto->saldo}}</p>
                                 </div>
                             </div>
                         </div>
