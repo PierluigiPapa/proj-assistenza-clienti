@@ -35,10 +35,10 @@
                         <td>{{ $login->cognome }}</td>
                         <td>{{ $login->username }}</td>
                         <td>{{ $login->admin ? 'Amministratore' : 'Utente' }}</td>
-                        <td>{{ ucfirst($login->created_at->setTimezone('Europe/Rome')->locale('it')->isoFormat('dddd DD-MM-YYYY')) }}
+                        <td>{{ ucfirst($login->created_at->setTimezone('Europe/Rome')->locale('it')->isoFormat('ddd DD-MM-YYYY')) }}
                             ore {{ $login->created_at->setTimezone('Europe/Rome')->format('H:i:s') }}
                         </td>
-                        <td>{{ ucfirst($login->updated_at->setTimezone('Europe/Rome')->locale('it')->isoFormat('dddd DD-MM-YYYY')) }}
+                        <td>{{ ucfirst($login->updated_at->setTimezone('Europe/Rome')->locale('it')->isoFormat('ddd DD-MM-YYYY')) }}
                             ore {{ $login->updated_at->setTimezone('Europe/Rome')->format('H:i:s') }}
                         </td>
                         <td>
@@ -64,10 +64,10 @@
                                                     <h3 class="card-subtitle mb-2 text-center mt-3">{{$login->username}}</h3>
                                                     <p class="card-text">Nome: {{$login->nome}}</p>
                                                     <p class="card-text">Cognome: {{$login->cognome}}</p>
-                                                    <p class="card-text">Data creazione dell'utente: {{ ucfirst($login->created_at->setTimezone('Europe/Rome')->locale('it')->isoFormat('dddd DD-MM-YYYY')) }}
+                                                    <p class="card-text">Data creazione dell'utente: {{ ucfirst($login->created_at->setTimezone('Europe/Rome')->locale('it')->isoFormat('ddd DD-MM-YYYY')) }}
                                                         ore {{ $login->created_at->setTimezone('Europe/Rome')->format('H:i:s') }}
                                                     </p>
-                                                    <p class="card-text">Data aggiornamento dell'utente: {{ ucfirst($login->created_at->setTimezone('Europe/Rome')->locale('it')->isoFormat('dddd DD-MM-YYYY')) }}
+                                                    <p class="card-text">Data aggiornamento dell'utente: {{ ucfirst($login->created_at->setTimezone('Europe/Rome')->locale('it')->isoFormat('ddd DD-MM-YYYY')) }}
                                                         ore {{ $login->created_at->setTimezone('Europe/Rome')->format('H:i:s') }}
                                                     </p>
                                                     <p class="card-text">Saldo disponibile: {{$login->dettagliConto->saldo}}</p>

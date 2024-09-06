@@ -9,15 +9,15 @@
         </div>
 
         <!-- Barra di ricerca per ID utente -->
-        <div class="d-flex justify-content-center align-items-center mt-3">
+        <div class="d-flex justify-content-center align-items-center mt-3 mb-3">
             <form action="{{ route('users.index') }}" method="GET" class="d-flex">
                 <input type="text" name="search" placeholder="Cerca per ID" class="form-control me-2" value="{{ request()->query('search') }}">
                 <button type="submit" class="btn btn-login">Cerca</button>
             </form>
         </div>
 
-        <div class="d-flex justify-content-center align-items-center mt-3">
-            <a href="{{ route('users.create') }}" class="btn btn-login">Crea</a>
+        <div class="col-12 d-flex justify-content-end align-items-center">
+            <a href="{{ route('users.create') }}" class="btn btn-login me-5">Crea</a>
         </div>
 
         <div class="d-flex justify-content-center mt-3">
@@ -44,50 +44,9 @@
                         <td>{{ $user->username }}</td>
                         <td>{{ $user->admin ? 'Amministratore' : 'Utente' }}</td>
                         <td>
-                            <button type="button" class="btn btn-ricarica" data-bs-toggle="modal" data-bs-target="#oreModal-{{ $user->id }}">
+                            <a href="{{ route('users.movimenti', $user->id) }}" class="btn btn-ricarica">
                                 Visualizza
-                            </button>
-
-                            <!-- Modal per visualizzare i movimenti ricarica -->
-                            <div class="modal fade" id="oreModal-{{ $user->id }}" tabindex="-1" aria-labelledby="oreModalLabel-{{ $user->id }}" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="oreModalLabel-{{ $user->id }}">Ricariche di {{ $user->username }}</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Tipologia</th>
-                                                        <th>Ore</th>
-                                                        <th>Azioni</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach($user->movimentiRicarica as $movimento)
-                                                    <tr>
-                                                        <td>{{ $movimento->opzione_ricarica_label }}</td>
-                                                        <td>{{ $movimento->ore }}</td>
-                                                        <td>
-                                                            <form action="{{ route('movimentiRicarica.destroy', $movimento->id) }}" method="POST" style="display:inline-block;">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </a>
                         </td>
                         <td>{{ $user->dettagliConto ? $user->dettagliConto->saldo : 'Saldo non disponibile'}}</td>
                         <td>

@@ -43,7 +43,6 @@ Route::get('/index', [UserController::class, 'index']);
 Route::resource('users', UserController::class);
 
 // Rotte per gestire le opzioni di ricarica //
-Route::delete('/movimentiRicarica/{id}', [MovimentiRicaricaController::class, 'destroy'])->name('movimentiRicarica.destroy');
 Route::post('/handlePayment', [NewPaymentController::class, 'handlePayment'])->name('handlePayment');
 
 // Rotte per la tabella della lista degli utenti
@@ -71,6 +70,11 @@ Route::get('/ricarica', function () {
 })->name('editRicaricaIntervento');
 
 Route::post('/ricarica', [PaymentController::class, 'processPayment'])->name('processPayment');
+
+Route::get('users/{user}/movimenti', [MovimentiRicaricaController::class, 'showUserMovimenti'])->name('users.movimenti');
+
+Route::resource('movimenti_ricarica', MovimentiRicaricaController::class);
+
 
 
 
