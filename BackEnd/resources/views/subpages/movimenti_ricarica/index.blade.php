@@ -3,7 +3,7 @@
 @section('content')
 
 <main>
-    <div class="container">
+    <div class="container margin">
         <div class="d-flex justify-content-center mt-3">
             <table class="table mt-5" style="width: 70%">
                 <thead>
