@@ -3,7 +3,6 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MovimentiRicaricaController;
-use App\Http\Controllers\NewPaymentController;
 use App\Http\Controllers\OpzioniRicaricaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TipiInterventoController;
@@ -11,6 +10,7 @@ use App\Http\Controllers\DettagliContoController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\InterventoController;
+use App\Http\Controllers\BraintreePaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,9 +42,6 @@ Route::get('/index', [UserController::class, 'index']);
 
 Route::resource('users', UserController::class);
 
-// Rotte per gestire le opzioni di ricarica //
-Route::post('/handlePayment', [NewPaymentController::class, 'handlePayment'])->name('handlePayment');
-
 // Rotte per la tabella della lista degli utenti
 Route::resource('logins', LoginController::class);
 
@@ -75,7 +72,8 @@ Route::get('users/{user}/movimenti', [MovimentiRicaricaController::class, 'showU
 
 Route::resource('movimenti_ricarica', MovimentiRicaricaController::class);
 
-
+Route::get('pagamenti', [BraintreePaymentController::class, 'showPaymentForm'])->name('braintree.form');
+Route::post('pagamenti', [BraintreePaymentController::class, 'processPayment'])->name('braintree.process');
 
 
 
