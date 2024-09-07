@@ -94,8 +94,8 @@ class InterventoController extends Controller
 
     public function create()
     {
-        // Recupera tutti gli utenti e tipi di intervento dal database
-        $users = Login::all();
+        // Recupera tutti gli utenti non amministratori e i tipi di intervento dal database
+        $users = Login::where('admin', 0)->get(); // Filtra gli utenti non amministratori
         $tipiIntervento = TipiIntervento::all();
 
         // Ritorna la vista con la lista degli utenti e tipi di intervento
