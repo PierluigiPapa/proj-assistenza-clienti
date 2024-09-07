@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <h3 class="card-title text-center">Ricarica il tuo intervento</h3>
 
-                    <form id="payment-form" method="POST" action="{{ route('processPayment') }}">
+                    <form id="payment-form" method="POST" action="{{ route('braintree.process') }}">
                         @csrf
                         <input type="hidden" name="IDLogin" value="{{ $user->id }}">
                         <input type="hidden" id="ore" name="ore" value="">

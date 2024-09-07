@@ -7,7 +7,6 @@ use App\Http\Controllers\OpzioniRicaricaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TipiInterventoController;
 use App\Http\Controllers\DettagliContoController;
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\InterventoController;
 use App\Http\Controllers\BraintreePaymentController;
@@ -54,8 +53,6 @@ Route::resource('tipi_intervento', TipiInterventoController::class);
 // Rotte per la tabella della lista dei tipi di interventi
 Route::resource('dettagli_conto', DettagliContoController::class);
 
-Route::post('/process-payment', [PaymentController::class, 'processPayment'])->name('processPayment');
-
 Route::get('/account', [AccountController::class, 'show'])->name('account.show')->middleware('auth');
 
 Route::post('/intervento/store', [InterventoController::class, 'store'])->name('intervento.store');
@@ -66,7 +63,7 @@ Route::get('/ricarica', function () {
     return view('ricarica_intervento.edit', compact('user'));
 })->name('editRicaricaIntervento');
 
-Route::post('/ricarica', [PaymentController::class, 'processPayment'])->name('processPayment');
+Route::post('/ricarica', [BraintreePaymentController::class, 'processPayment'])->name('braintree.process');
 
 Route::get('users/{user}/movimenti', [MovimentiRicaricaController::class, 'showUserMovimenti'])->name('users.movimenti');
 

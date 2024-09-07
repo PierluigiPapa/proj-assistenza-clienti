@@ -52,6 +52,7 @@ class InterventoController extends Controller
                 ->select(DB::raw('TIME_TO_SEC(saldo) as saldo_seconds'))
                 ->where('IDLogin', $userId)
                 ->value('saldo_seconds');
+            Log::info("saldo attuale: $saldoAttuale");
 
             // Verifica che il saldo attuale sia stato trovato
             if ($saldoAttuale === null) {
@@ -61,6 +62,8 @@ class InterventoController extends Controller
 
             // Sottrai la durata dell'intervento dal saldo
             $nuovoSaldoSeconds = $saldoAttuale - $durataInSecondi;
+            Log::info("durata intervento: $durataInSecondi");
+            Log::info("saldo dopo calcolo: $nuovoSaldoSeconds");
 
             // Verifica che il nuovo saldo non sia negativo
             if ($nuovoSaldoSeconds < 0) {

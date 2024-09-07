@@ -93,32 +93,33 @@ class BraintreePaymentController extends Controller
      * @param int $userId
      * @return void
      */
-    private function aggiornaSaldo($userId)
-    {
-        // Calcola la somma delle ore ricaricate in secondi
-        $oreRicarica = DB::table('movimenti_ricarica')
-            ->where('IDLogin', $userId)
-            ->sum(DB::raw('TIME_TO_SEC(ore)'));
-
+    private function aggiornaSaldo($userId) {
         // Recupera il saldo attuale in formato HH:MM:SS
-        $saldoAttuale = DB::table('dettagli_conto')
-            ->where('IDLogin', $userId)
-            ->value('saldo');
+        $saldoAttuale = DB::table('dettagli_conto')->where('IDLogin', $userId)->value('saldo');
 
         // Converti il saldo attuale in secondi
         $saldoAttualeSeconds = $this->timeToSeconds($saldoAttuale);
 
-        // Calcola il nuovo saldo in secondi
-        $nuovoSaldoSeconds = $saldoAttualeSeconds + $oreRicarica;
+        // Calcola il totale delle ore ricaricate
+        $oreRicarica = DB::table('movimenti_ricarica')->where('IDLogin', $userId)->sum(DB::raw('TIME_TO_SEC(ore)'));
+
+        // Recupera tutte le opzioni di ricarica e calcola la nuova durata
+        $nuovoSaldoSeconds = $oreRicarica;
 
         // Converti il nuovo saldo in formato HH:MM:SS
         $nuovoSaldo = $this->secondsToTime($nuovoSaldoSeconds);
 
+        // Log per debug
+        \Log::info("Ore ricarica: $oreRicarica");
+        \Log::info("Saldo attuale: $saldoAttuale");
+        \Log::info("Saldo attuale in secondi: $saldoAttualeSeconds");
+        \Log::info("Nuovo saldo in secondi: $nuovoSaldoSeconds");
+        \Log::info("Nuovo saldo: $nuovoSaldo");
+
         // Aggiorna il saldo nella tabella dettagli_conto
-        DB::table('dettagli_conto')
-            ->where('IDLogin', $userId)
-            ->update(['saldo' => $nuovoSaldo]);
+        DB::table('dettagli_conto')->where('IDLogin', $userId)->update(['saldo' => $nuovoSaldo]);
     }
+
 
     /**
      * Converte un formato di tempo HH:MM:SS in secondi.
