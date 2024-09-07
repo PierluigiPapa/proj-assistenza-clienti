@@ -3,7 +3,7 @@
 @section('content')
 
 <main>
-    <div class="container">
+    <div class="container margin">
         <div class="row mt-5">
             <div class="col-12 d-flex justify-content-center align-items-center">
                 <a href="{{ route('opzioni_ricarica.create') }}" class="btn btn-login me-5">Crea</a>
@@ -11,7 +11,7 @@
         </div>
 
         <div class="d-flex justify-content-center mt-3">
-            <table class="table mt-3" style="width: 70%;">
+            <table class="table mt-3" style="width: 50%">
                 <thead>
                     <tr class="text-center fs-5">
                         <th scope="col">ID</th>
@@ -99,19 +99,6 @@
     </div>
 </main>
 
-<style>
-    .btn-login {
-        background-color: #3498DB;
-        border: 2px solid white;
-        color: white;
-    }
 
-    .btn-login:hover {
-        background-color: #194665;
-        color: white;
-        transition: background-color 0.3s, color 0.3s, filter 0.3s;
-        border: 2px solid white;
-    }
-</style>
 
 @endsection

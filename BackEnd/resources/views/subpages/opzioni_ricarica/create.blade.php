@@ -3,41 +3,40 @@
 @section('content')
 
 <main>
-    <div class="container">
-        <div class="d-flex justify-content-center align-items-center">
-            <h3 class="text-light mt-5">Crea una nuova opzione di ricarica</h3>
-        </div>
+    <div class="container margin mt-5 mb-5">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="card mt-5" style="width: 50%;">
+                <div class="card-body">
+                    <h3 class="card-title text-dark text-center mb-5">Crea una nuova opzione di ricarica</h3>
+                    <form action="{{ route('opzioni_ricarica.store')}}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="" class="form-label">Inserisci la tipologia di ricarica</label>
+                            <input type="text" class="form-control" id="" name="descrizione" value="">
 
-        <div class="card mt-5" style="width: 100%;">
-            <div class="card-body">
-                <form action="{{ route('opzioni_ricarica.store')}}" method="POST">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="" class="form-label">Inserisci la tipologia di ricarica</label>
-                        <input type="text" class="form-control" id="" name="descrizione" value="">
+                            <div class="mb-3 mt-3">
+                                <label for="ore" class="form-label">Inserisci la quantità di ore per la ricarica</label>
+                                <input type="number" class="form-control" id="" name="ore" min="0" max="48" value="">
+                            </div>
 
-                        <div class="mb-3 mt-3">
-                            <label for="ore" class="form-label">Inserisci la quantità di ore per la ricarica</label>
-                            <input type="number" class="form-control" id="" name="ore" min="0" max="48" value="">
+                            <div class="mb-3 mt-3">
+                                <label for="costo" class="form-label">Inserisci l'importo della ricarica</label>
+                                <input type="number" class="form-control" id="costo" step="0.01" placeholder="0.00 €" min="0" name="costo" value="">
+                            </div>
+
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-login">Aggiungi</button>
+                            </div>
                         </div>
-
-                        <div class="mb-3 mt-3">
-                            <label for="costo" class="form-label">Inserisci l'importo della ricarica</label>
-                            <input type="number" class="form-control" id="costo" step="0.01" placeholder="0.00 €" min="0" name="costo" value="">
-                        </div>
-
-                        <div class="d-flex justify-content-center">
-                            <button type="submit" class="btn btn-login">Aggiungi</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="d-flex justify-content-center align-items-center">
-            <button class="btn btn-back mt-5">
-                <a href="/opzioni_ricarica">Torna Indietro</a>
-            </button>
+            <div class="d-flex justify-content-center align-items-center">
+                <button class="btn btn-back mt-5">
+                    <a href="/opzioni_ricarica">Torna Indietro</a>
+                </button>
+            </div>
         </div>
     </div>
 </main>
