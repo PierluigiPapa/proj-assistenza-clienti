@@ -3,7 +3,7 @@
 @section('content')
 
 <main>
-    <div class="container mt-5 mb-5">
+    <div class="container mt-5 mb-5 margin">
         <div class="row d-flex justify-content-center align-items-center">
             <!-- Card con il form di modifica utente-->
             <div class="card" style="width: 50%">
@@ -49,6 +49,11 @@
                     </form>
                 </div>
             </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <button class="btn btn-back mt-5">
+                    <a href="/index">Torna Indietro</a>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -83,29 +88,5 @@
 </main>
 
 
-<style>
-    .btn-login {
-        background-color: #3498DB;
-        border: 2px solid white;
-        color: white;
-    }
-
-    .btn-login:hover {
-        background-color: #194665;
-        color: white;
-        transition: background-color 0.3s, color 0.3s, filter 0.3s;
-        border: 2px solid white;
-    }
-
-    .alert-successo {
-        background-color: rgb(40, 184, 40);
-        color: black
-    }
-
-    .alert-errore {
-        background-color: rgb(255, 65, 65);
-        color: black
-    }
-</style>
 
 @endsection

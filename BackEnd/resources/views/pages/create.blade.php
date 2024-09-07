@@ -3,7 +3,7 @@
 @section('content')
 
 <main>
-    <div class="container">
+    <div class="container margin">
         <div class="row d-flex justify-content-center align-items-center mt-5">
             <div class="card" style="width: 50%">
                 <div class="card-body">
@@ -40,23 +40,13 @@
                     </form>
                 </div>
             </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <button class="btn btn-back mt-5">
+                    <a href="/index">Torna Indietro</a>
+                </button>
+            </div>
         </div>
     </div>
 </main>
-
-<style>
-    .btn-login {
-        background-color: #3498DB;
-        border: 2px solid white;
-        color: white;
-    }
-
-    .btn-login:hover {
-        background-color: #194665;
-        color: white;
-        transition: background-color 0.3s, color 0.3s, filter 0.3s;
-        border: 2px solid white;
-    }
-</style>
 
 @endsection

@@ -3,7 +3,7 @@
 @section('content')
 
 <main>
-    <div class="container">
+    <div class="container margin">
         <div class="d-flex justify-content-center align-items-center mt-5">
             <h3 class="text-light">Lista utenti: {{$totalUsers}}</h3>
         </div>
@@ -11,7 +11,7 @@
         <!-- Barra di ricerca per ID utente -->
         <div class="d-flex justify-content-center align-items-center mt-3 mb-3">
             <form action="{{ route('users.index') }}" method="GET" class="d-flex">
-                <input type="text" name="search" placeholder="Cerca per ID" class="form-control me-2" value="{{ request()->query('search') }}">
+                <input type="text" name="search" placeholder="Cerca per codice utente" class="form-control me-2" value="{{ request()->query('search') }}">
                 <button type="submit" class="btn btn-login">Cerca</button>
             </form>
         </div>
@@ -90,6 +90,8 @@
 </main>
 
 <style>
+
+
     .btn-login {
         background-color: #3498DB;
         border: 2px solid white;
