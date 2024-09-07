@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Login;
-use App\Models\DettagliConto; // Assicurati di importare il modello DettagliConto
+use App\Models\DettagliConto;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -31,11 +31,11 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        // Validazione dei dati in ingresso, inclusi nome, cognome e username
+        // Validazione dei dati in ingresso
         $request->validate([
             'nome' => ['required', 'string', 'max:255'],
             'cognome' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255', 'unique:login'], // Modificato per usare la tabella `login`
+            'username' => ['required', 'string', 'max:255', 'unique:login'], // Usare la tabella `login`
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -60,7 +60,13 @@ class RegisteredUserController extends Controller
         // Login dell'utente
         Auth::login($user);
 
-        // Reindirizzamento alla dashboard
-        return redirect(RouteServiceProvider::HOME);
+        // Reindirizzamento basato sul ruolo dell'utente
+        if ($user->admin) {
+            // Se l'utente è amministratore, reindirizza all'area amministrativa
+            return redirect('/index'); // Area amministratore
+        } else {
+            // Se l'utente è normale, reindirizza all'area utente
+            return redirect('/account'); // Area utente
+        }
     }
 }

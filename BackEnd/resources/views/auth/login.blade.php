@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
+<div class="container d-flex justify-content-center align-items-center">
     <div class="card-login p-4 shadow-lg rounded">
         <form method="POST" action="{{ route('login') }}">
             @csrf
@@ -52,6 +52,8 @@
 <style>
 .card-login {
     background: rgba(255, 255, 255, 0.8);
+    margin-top: 150px;
+    margin-right: 200px;
 }
 
 .btn-login {

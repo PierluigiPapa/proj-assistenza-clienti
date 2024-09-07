@@ -3,7 +3,7 @@
 @section('content')
 
 
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
+<div class="container d-flex justify-content-center align-items-center">
     <div class="card-login p-4 shadow-lg rounded">
         <form method="POST" action="{{ route('register') }}">
             @csrf
@@ -58,7 +58,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="admin" class="form-label">{{ __('Amministratore') }}</label>
+                <label for="admin" class="form-label">Registrati come {{ __('amministratore') }}</label>
                 <input id="admin" type="checkbox" class="form-check-input @error('admin') is-invalid @enderror" name="is_admin" value="1">
 
                 @error('admin')
@@ -77,20 +77,13 @@
 
 
 <style>
-.background-login {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('/images/Immagine_3.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-}
-
 .card-login {
     background: rgba(255, 255, 255, 0.8);
-    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 40%;
-    margin: auto;
+    margin-top: 70px;
+    margin-right: 200px;
 }
 
 .btn-login {

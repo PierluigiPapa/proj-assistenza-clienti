@@ -42,15 +42,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="http://localhost:5174/">{{ __('Home') }}</a>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="http://localhost:5174/">{{ __('Chi siamo') }}</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="http://localhost:5174/">{{ __('I nostri servizi') }}</a>
-                        </li>
-
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -104,12 +95,6 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link nav-sidebar" href="/logins">
-                                    <i class="fas fa-user"></i>
-                                    Tabella Utenti
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link nav-sidebar" href="/opzioni_ricarica">
                                     <i class="fas fa-battery-full"></i>
                                     Tabella Ricariche
@@ -150,7 +135,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link nav-sidebar" href="/ricarica">
+                                <a class="nav-link nav-sidebar" href="/pagamenti">
                                     <i class="fas fa-bolt"></i>
                                     Registra ricarica
                                 </a>
