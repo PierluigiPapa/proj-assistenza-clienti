@@ -3,7 +3,7 @@
 @section('content')
 
 <main>
-    <div class="container">
+    <div class="container margin">
         <div class="row">
             <div class="col">
                 <div class="d-flex justify-content-center align-items-center mt-5">
@@ -27,32 +27,5 @@
         </div>
     </div>
 </main>
-
-<style>
-    .btn-login {
-        background-color: #3498DB;
-        border: 2px solid white;
-        color: white;
-    }
-
-    .btn-login:hover {
-        background-color: #194665;
-        color: white;
-        transition: background-color 0.3s, color 0.3s, filter 0.3s;
-        border: 2px solid white;
-    }
-
-    .alert-successo {
-        background-color: rgb(40, 184, 40);
-        color: black
-    }
-
-    .alert-errore {
-        background-color: rgb(255, 65, 65);
-        color: black
-    }
-
-
-</style>
 
 @endsection

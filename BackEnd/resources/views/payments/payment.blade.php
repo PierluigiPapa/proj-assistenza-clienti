@@ -1,26 +1,42 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h2>Effettua una ricarica</h2>
 
-    <form id="payment-form" method="POST" action="{{ route('braintree.process') }}">
-        @csrf
-        <div class="mb-3">
-            <label for="opzione_ricarica_id" class="form-label"></label>
-            <option value="" disabled selected>Seleziona una modalità di pagamento</option>
-            <select name="IDOpzioneRicarica" class="form-select" required>
-                @foreach($opzioni as $opzione)
-                    <option value="{{ $opzione->id }}">{{ $opzione->descrizione }} - {{ $opzione->costo }}€</option>
-                @endforeach
-            </select>
+<main>
+    <div class="container margin">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="card mt-3" style="width:50%;">
+                <div class="card-body">
+                    <h3 class="card-title text-dark text-center mb-5">Effettua una ricarica</h3>
+
+                    <form id="payment-form" method="POST" action="{{ route('braintree.process') }}">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="opzione_ricarica_id" class="form-label"></label>
+                            <option value="" disabled selected>Seleziona una modalità di pagamento</option>
+                            <select name="IDOpzioneRicarica" class="form-select" required>
+                                @foreach($opzioni as $opzione)
+                                    <option value="{{ $opzione->id }}">{{ $opzione->descrizione }} - {{ $opzione->costo }}€</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div id="dropin-container"></div>
+
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-login">Ricarica</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div id="dropin-container"></div>
-
-        <button type="submit" class="btn btn-primary mt-3">Paga</button>
-    </form>
-</div>
+        <div class="d-flex justify-content-center align-items-center">
+            <button class="btn btn-back mt-5">
+                <a href="/account">Torna Indietro</a>
+            </button>
+        </div>
+    </div>
+</main>
 
 <script src="https://js.braintreegateway.com/web/dropin/1.32.0/js/dropin.min.js"></script>
 <script>
