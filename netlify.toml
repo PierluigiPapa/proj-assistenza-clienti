@@ -1,0 +1,4 @@
+[build]
+  base = "proj-assistenza-clienti"
+  command = "npm run build"  # o "yarn build" se usi Yarn
+  publish = "proj-assistenza-clienti/dist"
